@@ -31,6 +31,10 @@ a:hover{color:var(--ink);}
 .nav-link:hover{color:var(--accent);}
 .nav-link-join{font-family:'IBM Plex Mono',monospace;font-size:12.5px;color:var(--accent);text-decoration:none;}
 .nav-link-join:hover{color:var(--ink);}
+.card-link{color:var(--ink);text-decoration-color:var(--line);}
+.card-link:hover{color:var(--accent);text-decoration-color:currentColor;}
+.card-more{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--accent);text-decoration:none;white-space:nowrap;}
+.card-more:hover{color:var(--ink);}
 .foot-link{font-family:'IBM Plex Mono',monospace;font-size:12.5px;color:var(--muted);}
 .foot-link:hover{color:var(--accent);}
 .foot-tbd{font-family:'IBM Plex Mono',monospace;font-size:12.5px;color:var(--muted);}
@@ -109,9 +113,12 @@ a:hover{color:var(--ink);}
         </article>
         <article style="display:flex; flex-direction:column; gap:14px; border:1px solid var(--line); background:var(--surface); padding:28px 26px;">
           <span style="font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:0.08em; text-transform:uppercase; color:var(--accent);">Project B</span>
-          <h3 style="margin:0; font-family:'Newsreader',serif; font-weight:500; font-size:23px; line-height:1.25; text-wrap:pretty;">A Community Library of Baseline Models</h3>
+          <h3 style="margin:0; font-family:'Newsreader',serif; font-weight:500; font-size:23px; line-height:1.25; text-wrap:pretty;"><a href="project-b.html" class="card-link">A Community Library of Baseline Models</a></h3>
           <p style="margin:0; font-size:15.5px; line-height:1.6; color:var(--muted); text-wrap:pretty; flex:1;">A standardized repository of the community's baseline models in existing notation, with each toolkit's treatment documented side by side.</p>
-          <p style="margin:0; padding-top:14px; border-top:1px solid var(--line); font-family:'IBM Plex Mono',monospace; font-size:12px; line-height:1.6; color:var(--muted);">→ Starts immediately · test corpus for Project A</p>
+          <div style="display:flex; flex-wrap:wrap; gap:6px 16px; justify-content:space-between; align-items:baseline; padding-top:14px; border-top:1px solid var(--line);">
+            <p style="margin:0; font-family:'IBM Plex Mono',monospace; font-size:12px; line-height:1.6; color:var(--muted);">→ Starts now · test corpus for Project A</p>
+            <a href="project-b.html" class="card-more">Read the plan →</a>
+          </div>
         </article>
       </div>
     </section>

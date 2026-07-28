@@ -15,7 +15,16 @@ The group runs two complementary projects:
 | Project | Description |
 | --- | --- |
 | **A — The Semantics of Economic Models** | Each toolkit team states formally what its model files mean, publishing a per-toolkit paper; building toward a journal special issue. |
-| **B — A Community Library of Baseline Models** | A standardized repository of the community's baseline models in existing notation, with each toolkit's treatment documented side by side. |
+| **B — A Community Library of Baseline Models** | A standardized repository of the community's baseline models in existing notation, with each toolkit's treatment documented side by side. [Project page](https://mmcky.github.io/sce-wg1/project-b.html) |
+
+Project B grew out of a proposal put to the CEF 2026 pre-conference; it is coordinated by Matt McKay, with QuantEcon hosting and publishing the collection.
+
+Drafts for the Project B specification process live in [`project-b/`](project-b/):
+
+| File | Purpose |
+| --- | --- |
+| [`capability-survey.md`](project-b/capability-survey.md) | Proposed survey content, written for co-chair review and then transcription into a form. Completed once by each project; the responses compose the capability matrix that determines which baselines a group can adopt. |
+| [`model-spec-template.md`](project-b/model-spec-template.md) | Skeleton for a baseline specification, authored per group by a model specification architect. Implementations and tutorials are submitted against a frozen version. |
 
 ## This repository
 
@@ -30,9 +39,12 @@ You do not need to be a member to follow along: this repository and its issue tr
 
 <!--
 TODO before announcing the site:
-- Replace the placeholder address (wg1@example.org) in docs/index.html with both co-chairs'
-  contact addresses. Correspondence is sent personally by the co-chairs; no shared wg1@
-  address and no mailing list are being created, so the footer "Mailing list" entry stays tbd.
+- Replace the placeholder address (wg1@example.org) in docs/index.html and docs/project-b.html
+  with both co-chairs' contact addresses. Correspondence is sent personally by the co-chairs;
+  no shared wg1@ address and no mailing list are being created, so the footer "Mailing list"
+  entry stays tbd. (The Project B CTA may want the coordinator's address alone rather than both.)
+- Add the Project B collection repository link once it exists — docs/project-b.html marks it
+  ⟨link to follow⟩ in the Contributing section.
 - Add the sign-up form link when it exists, and the when2meet availability grid.
 - Finalise the Project A description (AAS).
 - Add a CODE_OF_CONDUCT.md and link it from the site footer.
