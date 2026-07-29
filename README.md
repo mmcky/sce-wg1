@@ -14,7 +14,7 @@ The group runs two complementary projects:
 
 | Project | Description |
 | --- | --- |
-| **A — The Semantics of Economic Models** | Each toolkit team states formally what its model files mean, publishing a per-toolkit paper; building toward a journal special issue. |
+| **A — The Semantics of Economic Models** | Each toolkit team states formally what its model files mean, publishing a per-toolkit paper; building toward a journal special issue. [Project drafts](project-a/) |
 | **B — A Community Library of Baseline Models** | A standardized repository of the community's baseline models in existing notation, with each toolkit's treatment documented side by side. [Project page](https://mmcky.github.io/sce-wg1/project-b.html) |
 
 Project B grew out of a proposal put to the CEF 2026 pre-conference; it is coordinated by Matt McKay, with QuantEcon hosting and publishing the collection.
@@ -25,6 +25,14 @@ Drafts for the Project B specification process live in [`project-b/`](project-b/
 | --- | --- |
 | [`capability-survey.md`](project-b/capability-survey.md) | Proposed survey content, written for co-chair review and then transcription into a form. Completed once by each project; the responses compose the capability matrix that determines which baselines a group can adopt. |
 | [`model-spec-template.md`](project-b/model-spec-template.md) | Skeleton for a baseline specification, authored per group by a model specification architect. Implementations and tutorials are submitted against a frozen version. |
+
+Working drafts for Project A live in [`project-a/`](project-a/). All three documents are drafts under active revision by the co-chairs; placeholders in square brackets are deliberate.
+
+| File | Purpose |
+| --- | --- |
+| [`project-a-brief.md`](project-a/project-a-brief.md) | The research brief: the project's question (which semantic ontologies enable the use of AI for economic modelling), its working definitions, the research programme, and success criteria. |
+| [`jedc-special-issue-proposal.md`](project-a/jedc-special-issue-proposal.md) | Draft proposal for a special issue of the *Journal of Economic Dynamics and Control*, following the den Haan–Judd–Juillard comparison-project format. |
+| [`jedc-call-for-papers.md`](project-a/jedc-call-for-papers.md) | Draft call for papers to accompany the proposal. |
 
 ## This repository
 
