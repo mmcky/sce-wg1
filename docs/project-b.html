@@ -72,10 +72,10 @@ ul.plain li::marker{color:var(--accent);}
         <a href="#ask" class="nav-link">The ask</a>
         <a href="#roadmap" class="nav-link">Roadmap</a>
         <a href="#contribute" class="nav-link-join">Contribute</a>
-        <button type="button" id="theme-toggle" class="theme-toggle" title="Switch between light and dark">
+        <button type="button" id="theme-toggle" class="theme-toggle" title="Switch between light and dark" aria-label="Switch between light and dark">
           <svg class="i-light" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.9 1.9M19.1 4.9l-1.8 1.8M6.7 17.3l-1.9 1.9"/></svg>
           <svg class="i-dark" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z"/></svg>
-          <span class="sr-only" id="theme-state" aria-live="polite">Switch between light and dark</span>
+          <span class="sr-only" id="theme-state" aria-live="polite"></span>
         </button>
       </div>
     </nav>
@@ -369,15 +369,19 @@ ul.plain li::marker{color:var(--accent);}
   var state=document.getElementById('theme-state');
   var mq=window.matchMedia?window.matchMedia('(prefers-color-scheme: dark)'):null;
   function current(){return document.documentElement.dataset.omTheme||((mq&&mq.matches)?'dark':'light');}
-  function label(){var t=current();state.textContent='theme: '+t;btn.title='theme: '+t+' — click to switch';}
+  /* The button is named for what it does, not for the state it is in: an explicit aria-label
+     wins over the button's contents, so the status span below never becomes its accessible name. */
+  function describe(){var msg='Switch to '+(current()==='dark'?'light':'dark')+' theme';btn.setAttribute('aria-label',msg);btn.title=msg;}
   btn.addEventListener('click',function(){
     var next=current()==='dark'?'light':'dark';
     document.documentElement.dataset.omTheme=next;
-    label();
+    describe();
+    /* Announced only in response to the click, so the live region stays quiet on load. */
+    state.textContent='theme: '+next;
     try{localStorage.setItem('wg1-theme',next);}catch(e){}
   });
-  if(mq&&mq.addEventListener)mq.addEventListener('change',label);
-  label();
+  if(mq&&mq.addEventListener)mq.addEventListener('change',describe);
+  describe();
 })();
 </script>
 </body>
