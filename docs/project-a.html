@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Project A · The Semantics of Economic Models — SCE WG1</title>
+<meta name="description" content="Each toolkit team states formally what its model files mean. A proposed journal special issue collecting semantic ontologies for computational economics. Project A of SCE Working Group 1.">
+<meta property="og:title" content="Project A · The Semantics of Economic Models">
+<meta property="og:description" content="An AI-readable, deterministic statement of what a computed model means, independent of code and solver. A project of SCE Working Group 1 on Language and Formal Semantics.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://mmcky.github.io/sce-wg1/project-a.html">
+<link rel="canonical" href="https://mmcky.github.io/sce-wg1/project-a.html">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%2396402E'/%3E%3Ctext x='50' y='70' font-family='monospace' font-size='48' font-weight='600' fill='%23FAF9F6' text-anchor='middle'%3EW1%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=Source+Sans+3:wght@400;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="chrome.css">
+<style>
+/* Project A additions. */
+.tag{display:inline-block;font-family:'IBM Plex Mono',monospace;font-size:11.5px;letter-spacing:0.06em;text-transform:uppercase;color:var(--muted);border:1px solid var(--line);padding:3px 8px;}
+ul.plain{margin:0;padding:0 0 0 1.1em;display:grid;gap:8px;}
+ul.plain li{font-size:15.5px;line-height:1.6;text-wrap:pretty;}
+ul.plain li::marker{color:var(--accent);}
+.doc-link{display:inline-flex;align-items:center;gap:8px;font-family:'IBM Plex Mono',monospace;font-size:13px;color:var(--bg);background:var(--accent);text-decoration:none;padding:12px 22px;}
+.doc-link:hover{color:var(--bg);filter:brightness(1.12);}
+</style>
+<script>
+/* Apply a saved theme override before first paint to avoid a flash of the wrong theme. */
+(function(){try{var t=localStorage.getItem('wg1-theme');if(t==='light'||t==='dark')document.documentElement.dataset.omTheme=t;}catch(e){}})();
+</script>
+<script src="chrome.js" defer></script>
+</head>
+<body>
+<div style="min-height:100vh; background:var(--bg); color:var(--ink);">
+  <div style="max-width:1000px; margin:0 auto; padding:0 24px;">
+
+    <nav style="display:flex; align-items:baseline; justify-content:space-between; gap:24px; flex-wrap:wrap; padding:28px 0; border-bottom:1px solid var(--line);">
+      <a href="./" class="nav-home">SCE&nbsp;·&nbsp;WG1</a>
+      <div style="display:flex; gap:28px; flex-wrap:wrap; align-items:center;">
+        <a href="#why" class="nav-link">Why</a>
+        <a href="#proposal" class="nav-link">The proposal</a>
+        <a href="#domains" class="nav-link">Domains</a>
+        <a href="#themes" class="nav-link">Themes</a>
+        <a href="#organization" class="nav-link">Organization</a>
+        <a href="#document" class="nav-link-join">Read the proposal</a>
+        <button type="button" id="theme-toggle" class="theme-toggle" title="Switch between light and dark" aria-label="Switch between light and dark">
+          <svg class="i-light" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.9 1.9M19.1 4.9l-1.8 1.8M6.7 17.3l-1.9 1.9"/></svg>
+          <svg class="i-dark" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z"/></svg>
+          <span class="sr-only" id="theme-state" aria-live="polite"></span>
+        </button>
+      </div>
+    </nav>
+
+    <header style="padding:88px 0 72px;">
+      <p style="margin:0 0 20px; font-family:'IBM Plex Mono',monospace; font-size:13px; letter-spacing:0.08em; text-transform:uppercase; color:var(--accent);">Project A · SCE WG1</p>
+      <h1 style="margin:0; font-family:'Newsreader',serif; font-weight:500; font-size:clamp(38px, 5.5vw, 58px); line-height:1.08; letter-spacing:-0.01em; max-width:20ch; text-wrap:pretty;">The semantics of economic models.</h1>
+      <p style="margin:28px 0 0; font-size:19px; line-height:1.55; color:var(--muted); max-width:60ch; text-wrap:pretty;">Each toolkit team states formally what its model files <em>mean</em> — an AI-readable, deterministic statement, independent of code and solver, of which economic objects exist, what stands for what, what is written down, and when the interpretation holds.</p>
+      <div style="display:flex; flex-wrap:wrap; gap:8px 40px; margin-top:36px;">
+        <p style="margin:0; font-size:15px;">Chaired by <strong style="font-weight:600;">Akshay Shanker</strong> and <strong style="font-weight:600;">Matt McKay</strong></p>
+      </div>
+      <p style="margin:10px 0 0; font-family:'IBM Plex Mono',monospace; font-size:12.5px; line-height:1.7; color:var(--muted);">Working toward a journal special issue · <a href="#document">read the full proposal</a></p>
+    </header>
+
+    <section id="why" style="display:flex; flex-wrap:wrap; gap:20px 56px; padding:64px 0; border-top:1px solid var(--line);">
+      <div style="flex:1 1 150px; max-width:190px;">
+        <h2 style="margin:0; font-family:'IBM Plex Mono',monospace; font-size:12.5px; font-weight:400; letter-spacing:0.08em; text-transform:uppercase; color:var(--accent);">01 · Why</h2>
+      </div>
+      <div style="flex:999 1 400px; min-width:0; display:grid; gap:28px; max-width:62ch;">
+        <div>
+          <h3 style="margin:0 0 12px; font-family:'Newsreader',serif; font-weight:500; font-size:26px; line-height:1.2;">A model's meaning is implicit</h3>
+          <p style="margin:0; font-size:16.5px; line-height:1.65; text-wrap:pretty;">When economists compute a model, its precise meaning is distributed across prose, notation, calibration, and code. The paper says <em>we solve the following model</em>, but its equations underdetermine both what the code computes and what the computation means, leaving the reader to fill the gaps. The same gaps confront whoever rebuilds or extends it, so results are hard to cross-verify and implementations hard to interoperate.</p>
+        </div>
+        <div>
+          <h3 style="margin:0 0 12px; font-family:'Newsreader',serif; font-weight:500; font-size:26px; line-height:1.2;">Convention breaks down once AI writes the code</h3>
+          <p style="margin:0; font-size:16.5px; line-height:1.65; text-wrap:pretty;">Professional convention has helped trained modelers interpret and replicate one another's work. But economists increasingly use language models to write, modify, and translate modeling code, and that output is probabilistic by construction. Unverified, it can compute a different model from the one intended. Verifying it requires a statement, independent of the code, of which objects are computed and which relations among them are enforced — a <strong style="font-weight:600;">semantic ontology</strong>.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="proposal" style="display:flex; flex-wrap:wrap; gap:20px 56px; padding:64px 0; border-top:1px solid var(--line);">
+      <div style="flex:1 1 150px; max-width:190px;">
+        <h2 style="margin:0; font-family:'IBM Plex Mono',monospace; font-size:12.5px; font-weight:400; letter-spacing:0.08em; text-transform:uppercase; color:var(--accent);">02 · The proposal</h2>
+      </div>
+      <div style="flex:999 1 400px; min-width:0; display:grid; gap:24px;">
+        <div style="border:1px solid var(--line); background:var(--surface); padding:28px 26px;">
+          <p style="margin:0 0 12px; font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:0.08em; text-transform:uppercase; color:var(--accent);">Proposed special issue</p>
+          <p style="margin:0; font-size:16.5px; line-height:1.65; text-wrap:pretty;">A special issue collecting semantic ontologies for the domains of computational economics: modeling languages, toolkits, empirical methods, and model classes. Each paper takes one domain of study, states its semantic ontology, and demonstrates it on worked examples of the team's own choosing. The working group will submit a subset of the papers, an open call will invite the rest, and a comparison paper, written jointly by the participating teams, will close the issue.</p>
+        </div>
+        <p style="margin:0; font-size:16.5px; line-height:1.65; max-width:62ch; text-wrap:pretty;">With semantic ontologies in place, translating models between toolkits — and generating new modelling research — become operations a language model can carry out and be checked on cheaply, rather than manual recoding.</p>
+      </div>
+    </section>
+
+    <section id="domains" style="display:flex; flex-wrap:wrap; gap:20px 56px; padding:64px 0; border-top:1px solid var(--line);">
+      <div style="flex:1 1 150px; max-width:190px;">
+        <h2 style="margin:0; font-family:'IBM Plex Mono',monospace; font-size:12.5px; font-weight:400; letter-spacing:0.08em; text-transform:uppercase; color:var(--accent);">03 · Domains of study</h2>
+      </div>
+      <div style="flex:999 1 400px; min-width:0; display:grid; gap:24px;">
+        <p style="margin:0; font-size:16.5px; line-height:1.65; max-width:62ch; text-wrap:pretty;">Each paper addresses one domain of study — a modeling language, a toolkit, an empirical method, a model class, or a combination of these.</p>
+        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(270px, 1fr)); gap:20px;">
+          <article style="display:flex; flex-direction:column; gap:12px; border:1px solid var(--line); background:var(--surface); padding:26px 24px;">
+            <h3 style="margin:0; font-family:'Newsreader',serif; font-weight:500; font-size:21px; line-height:1.25;">Modeling languages</h3>
+            <p style="margin:0; font-size:15.5px; line-height:1.6; color:var(--muted); text-wrap:pretty; flex:1;">A fixed grammar in which a complete model is written as a file, as in Dynare's model language or Dolo's YAML model files.</p>
+          </article>
+          <article style="display:flex; flex-direction:column; gap:12px; border:1px solid var(--line); background:var(--surface); padding:26px 24px;">
+            <h3 style="margin:0; font-family:'Newsreader',serif; font-weight:500; font-size:21px; line-height:1.25;">Toolkits</h3>
+            <p style="margin:0; font-size:15.5px; line-height:1.6; color:var(--muted); text-wrap:pretty; flex:1;">A collection of construction calls and classes from which a model is assembled in a programming language, as in HARK's agent classes, the sequence-space Jacobian toolkit, or the VFI Toolkit.</p>
+          </article>
+          <article style="display:flex; flex-direction:column; gap:12px; border:1px solid var(--line); background:var(--surface); padding:26px 24px;">
+            <h3 style="margin:0; font-family:'Newsreader',serif; font-weight:500; font-size:21px; line-height:1.25;">Estimation and empirical methods</h3>
+            <p style="margin:0; font-size:15.5px; line-height:1.6; color:var(--muted); text-wrap:pretty; flex:1;">A method that takes a model to data — which measured objects stand for the model's quantities, which classifications organize them, and which transformations construct the inputs to estimation or calibration.</p>
+          </article>
+          <article style="display:flex; flex-direction:column; gap:12px; border:1px solid var(--line); background:var(--surface); padding:26px 24px;">
+            <h3 style="margin:0; font-family:'Newsreader',serif; font-weight:500; font-size:21px; line-height:1.25;">Model classes</h3>
+            <p style="margin:0; font-size:15.5px; line-height:1.6; color:var(--muted); text-wrap:pretty; flex:1;">A family of models built from the same kinds of objects, as in heterogeneous-agent macroeconomies or overlapping-generations economies.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="themes" style="display:flex; flex-wrap:wrap; gap:20px 56px; padding:64px 0; border-top:1px solid var(--line);">
+      <div style="flex:1 1 150px; max-width:190px;">
+        <h2 style="margin:0; font-family:'IBM Plex Mono',monospace; font-size:12.5px; font-weight:400; letter-spacing:0.08em; text-transform:uppercase; color:var(--accent);">04 · Research themes</h2>
+      </div>
+      <div style="flex:999 1 400px; min-width:0; display:grid; gap:24px; max-width:62ch;">
+        <p style="margin:0; font-size:16.5px; line-height:1.65; text-wrap:pretty;">Every paper answers two core questions: it constructs a semantic ontology for its domain, and it establishes that ontology's <em>metatheory</em> — statements about the ontology rather than components of it.</p>
+        <div>
+          <h3 style="margin:0 0 10px; font-family:'Newsreader',serif; font-weight:500; font-size:21px;">The three components</h3>
+          <ul class="plain">
+            <li><strong style="font-weight:600;">Ontology.</strong> What is assumed to exist.</li>
+            <li><strong style="font-weight:600;">Denotation.</strong> What stands for, and relates to, what.</li>
+            <li><strong style="font-weight:600;">Syntax.</strong> What is written down.</li>
+          </ul>
+          <p style="margin:14px 0 0; font-size:15px; line-height:1.6; color:var(--muted); text-wrap:pretty;">Domains differ in how important each component is, and some — a model class, for instance — may not have a syntax at all.</p>
+        </div>
+        <div>
+          <h3 style="margin:0 0 10px; font-family:'Newsreader',serif; font-weight:500; font-size:21px;">The metatheory</h3>
+          <p style="margin:0; font-size:16.5px; line-height:1.65; text-wrap:pretty;">The metatheory states when the interpretation holds (<em>well-posedness</em>) and what preserves it (<em>equivalence</em>, <em>adequacy</em>, and <em>convergence</em>).</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="organization" style="display:flex; flex-wrap:wrap; gap:20px 56px; padding:64px 0; border-top:1px solid var(--line);">
+      <div style="flex:1 1 150px; max-width:190px;">
+        <h2 style="margin:0; font-family:'IBM Plex Mono',monospace; font-size:12.5px; font-weight:400; letter-spacing:0.08em; text-transform:uppercase; color:var(--accent);">05 · Organization</h2>
+      </div>
+      <div style="flex:999 1 400px; min-width:0; display:grid; gap:24px;">
+        <p style="margin:0; font-size:16.5px; line-height:1.65; max-width:62ch; text-wrap:pretty;">The working group's members include developers of Dynare, HARK, and the VFI Toolkit, and its papers come from its subgroups. Papers pass an internal review within the working group and then the journal's ordinary external refereeing. We expect six to eight papers, with a session at the Society's conference between submission and revision.</p>
+        <p style="margin:0; font-size:16.5px; line-height:1.65; max-width:62ch; text-wrap:pretty;">Guest editors — a lead editor and at least one co-editor, neither submitting to the issue — are drawn from outside the working group. Every paper, including the comparison paper, is handled by the guest editors, subject to the journal's final editorial authority.</p>
+        <div style="display:grid; gap:0;">
+          <div style="display:flex; flex-wrap:wrap; gap:6px 32px; align-items:baseline; padding:16px 0; border-top:1px solid var(--line);">
+            <p style="margin:0; flex:1 1 240px; font-size:16px; line-height:1.5; font-weight:600;">Call for papers</p>
+            <p style="margin:0; flex:2 1 200px; font-family:'IBM Plex Mono',monospace; font-size:13px; color:var(--muted);">On acceptance</p>
+          </div>
+          <div style="display:flex; flex-wrap:wrap; gap:6px 32px; align-items:baseline; padding:16px 0; border-top:1px solid var(--line);">
+            <p style="margin:0; flex:1 1 240px; font-size:16px; line-height:1.5; font-weight:600;">Submissions</p>
+            <p style="margin:0; flex:2 1 200px; font-family:'IBM Plex Mono',monospace; font-size:13px; color:var(--muted);">+9 months</p>
+          </div>
+          <div style="display:flex; flex-wrap:wrap; gap:6px 32px; align-items:baseline; padding:16px 0; border-top:1px solid var(--line);">
+            <p style="margin:0; flex:1 1 240px; font-size:16px; line-height:1.5; font-weight:600;">Internal review completed</p>
+            <p style="margin:0; flex:2 1 200px; font-family:'IBM Plex Mono',monospace; font-size:13px; color:var(--muted);">+12 months</p>
+          </div>
+          <div style="display:flex; flex-wrap:wrap; gap:6px 32px; align-items:baseline; padding:16px 0; border-top:1px solid var(--line);">
+            <p style="margin:0; flex:1 1 240px; font-size:16px; line-height:1.5; font-weight:600;">Referee reports</p>
+            <p style="margin:0; flex:2 1 200px; font-family:'IBM Plex Mono',monospace; font-size:13px; color:var(--muted);">+15 months</p>
+          </div>
+          <div style="display:flex; flex-wrap:wrap; gap:6px 32px; align-items:baseline; padding:16px 0; border-top:1px solid var(--line); border-bottom:1px solid var(--line);">
+            <p style="margin:0; flex:1 1 240px; font-size:16px; line-height:1.5; font-weight:600;">Revisions and the comparison paper</p>
+            <p style="margin:0; flex:2 1 200px; font-family:'IBM Plex Mono',monospace; font-size:13px; color:var(--muted);">+24 months</p>
+          </div>
+        </div>
+        <p style="margin:0; font-size:15px; line-height:1.6; color:var(--muted); max-width:62ch; text-wrap:pretty;"><span class="tag">Not yet fixed</span> &nbsp;Calendar dates follow acceptance, and the target journal, guest editors and committed teams are still being settled. The proposal is a working draft, not an announcement.</p>
+      </div>
+    </section>
+
+    <section id="document" style="display:flex; flex-wrap:wrap; gap:20px 56px; padding:64px 0; border-top:1px solid var(--line);">
+      <div style="flex:1 1 150px; max-width:190px;">
+        <h2 style="margin:0; font-family:'IBM Plex Mono',monospace; font-size:12.5px; font-weight:400; letter-spacing:0.08em; text-transform:uppercase; color:var(--accent);">06 · The proposal</h2>
+      </div>
+      <div style="flex:999 1 400px; min-width:0; display:grid; gap:24px; max-width:62ch;">
+        <p style="margin:0; font-size:16.5px; line-height:1.65; text-wrap:pretty;">The full proposal — including the appendix developing the research themes, and the reference list — is maintained as a document in this repository and typeset to PDF.</p>
+        <div style="display:flex; flex-wrap:wrap; gap:14px 18px; align-items:center;">
+          <a class="doc-link" href="https://github.com/mmcky/sce-wg1/blob/main/project-a/special-issue-proposal.pdf">Read the proposal (PDF)</a>
+          <a href="https://github.com/mmcky/sce-wg1/blob/main/project-a/special-issue-proposal.md" class="card-more">Markdown source →</a>
+        </div>
+        <p style="margin:0; font-size:15px; line-height:1.6; color:var(--muted); text-wrap:pretty;">This page summarises the proposal; the document is authoritative. <a href="project-b.html">Project B</a> builds the curated corpus of worked models that these semantic ontologies have to account for.</p>
+      </div>
+    </section>
+
+    <footer style="display:flex; flex-wrap:wrap; gap:12px 40px; justify-content:space-between; align-items:baseline; padding:44px 0 56px; border-top:1px solid var(--line);">
+      <p style="margin:0; font-family:'IBM Plex Mono',monospace; font-size:12.5px; color:var(--muted);">SCE Working Group 1 · Language and Formal Semantics</p>
+      <div style="display:flex; flex-wrap:wrap; gap:12px 28px;">
+        <a href="./" class="foot-link">Working group</a>
+        <a href="project-b.html" class="foot-link">Project B</a>
+        <a href="https://github.com/mmcky/sce-wg1" class="foot-link">Group repository</a>
+      </div>
+    </footer>
+
+  </div>
+</div>
+</body>
+</html>

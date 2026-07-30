@@ -14,10 +14,12 @@ The group runs two complementary projects:
 
 | Project | Description |
 | --- | --- |
-| **A — The Semantics of Economic Models** | Each toolkit team states formally what its model files mean, publishing a per-toolkit paper; building toward a journal special issue. |
+| **A — The Semantics of Economic Models** | Each toolkit team states formally what its model files mean, publishing a per-toolkit paper; building toward a journal special issue. [Project page](https://mmcky.github.io/sce-wg1/project-a.html) |
 | **B — A Community Library of Baseline Models** | A standardized repository of the community's baseline models in existing notation, with each toolkit's treatment documented side by side. [Project page](https://mmcky.github.io/sce-wg1/project-b.html) |
 
 Project B grew out of a proposal put to the CEF 2026 pre-conference; it is coordinated by Matt McKay, with QuantEcon hosting and publishing the collection.
+
+The Project A special-issue proposal lives in [`project-a/`](project-a/): [`special-issue-proposal.md`](project-a/special-issue-proposal.md) is the source, typeset to [`special-issue-proposal.pdf`](project-a/special-issue-proposal.pdf) with `myst build project-a/special-issue-proposal.md --pdf` using the LaTeX template in [`templates/`](templates/).
 
 Drafts for the Project B specification process live in [`project-b/`](project-b/):
 
