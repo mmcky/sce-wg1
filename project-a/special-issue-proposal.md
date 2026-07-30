@@ -80,17 +80,6 @@ teams, will close the issue.
 ```
 
 <!-- needs to be something here about challenges for economics, i.e. application diversity. -->
-<!--
-The format is familiar at the journal, whose scope includes computational
-methods: in two earlier special issues, several teams computed the same models
-and a closing comparison drew the results together (den Haan, Judd and
-Juillard 2010, 2011).
-We keep the many teams and the closing comparison, but instead of solving
-common models the teams state what their models and code mean.
-When a model written for one toolkit can be read, checked, and re-solved in
-another, the semantic ontologies that make this possible are research
-infrastructure.
--->
 
 ### Semantic Ontologies
 
@@ -197,10 +186,6 @@ method, a model class, or a combination of these.[^cg]
 ```{raw:tex}
 \end{displaybox}
 ```
-
-<!--
-AAS to AAS: I am not sure about the third sentence above, for review.
--->
 
 **Research themes.**
 The research themes of the issue are two of the core research questions
@@ -429,13 +414,13 @@ Bock, C., and M. Grüninger (2005). "PSL: A Semantic Domain for Flow Models."
 (ref-chen1976)=
 Chen, P. P. (1976). "The Entity-Relationship Model — Toward a Unified View of
 Data." *ACM Transactions on Database Systems* 1(1), 9–36.
-[[link]](https://dl.acm.org/doi/10%2E1145/320434.320440)
+[[link]](https://dl.acm.org/doi/10.1145%2F320434.320440)
 
 (ref-demoura2021)=
 de Moura, L., and S. Ullrich (2021). "The Lean 4 Theorem Prover and
 Programming Language." In *Automated Deduction — CADE 28*, Lecture Notes in
 Artificial Intelligence 12699. Springer, 625–635.
-[[link]](https://link.springer.com/chapter/10%2E1007/978-3-030-79876-5_37)
+[[link]](https://link.springer.com/chapter/10.1007%2F978-3-030-79876-5_37)
 
 (ref-fox2003)=
 Fox, M., and D. Long (2003). "PDDL2.1: An Extension to PDDL for Expressing
@@ -447,20 +432,20 @@ Temporal Planning Domains." *Journal of Artificial Intelligence Research* 20,
 Fritzson, P., and V. Engelson (1998). "Modelica — A Unified Object-Oriented
 Language for System Modeling and Simulation." In *ECOOP '98 — Object-Oriented
 Programming*, Lecture Notes in Computer Science 1445. Springer, 67–90.
-[[link]](https://link.springer.com/chapter/10%2E1007/BFb0054087)
+[[link]](https://link.springer.com/chapter/10.1007%2FBFb0054087)
 
 (ref-gleeson2010)=
 Gleeson, P., S. Crook, R. C. Cannon, M. L. Hines, G. O. Billings, et al.
 (2010). "NeuroML: A Language for Describing Data Driven Models of Neurons and
 Networks with a High Degree of Biological Detail." *PLoS Computational
 Biology* 6(6), e1000815.
-[[link]](https://hdl.handle.net/10%2E1371/journal.pcbi.1000815)
+[[link]](https://hdl.handle.net/10.1371%2Fjournal.pcbi.1000815)
 
 (ref-goguen1977)=
 Goguen, J. A., J. W. Thatcher, E. G. Wagner, and J. B. Wright (1977).
 "Initial Algebra Semantics and Continuous Algebras." *Journal of the ACM*
 24(1), 68–95.
-[[link]](https://dl.acm.org/doi/10%2E1145/321992.321997)
+[[link]](https://dl.acm.org/doi/10.1145%2F321992.321997)
 
 (ref-gruber1993)=
 Gruber, T. R. (1993). "A translation approach to portable ontology
@@ -475,7 +460,7 @@ Staab and R. Studer (eds.), *Handbook on Ontologies*, 2nd ed. Springer, 1–17.
 (ref-gruninger2003)=
 Grüninger, M., and C. Menzel (2003). "The Process Specification Language
 (PSL): Theory and Applications." *AI Magazine* 24(3), 63–74.
-[[link]](https://hdl.handle.net/10%2E1609/aimag.v24i3.1719)
+[[link]](https://hdl.handle.net/10.1609%2Faimag.v24i3.1719)
 
 (ref-haas2017)=
 Haas, A., A. Rossberg, D. L. Schuff, B. L. Titzer, D. Gohman, L. Wagner,
@@ -491,12 +476,12 @@ Harel, D., and B. Rumpe (2004). "Meaningful modeling: what's the semantics of
 (ref-hoare1969)=
 Hoare, C. A. R. (1969). "An axiomatic basis for computer programming."
 *Communications of the ACM* 12(10), 576–580.
-[[link]](https://dl.acm.org/doi/10%2E1145/363235.363259)
+[[link]](https://dl.acm.org/doi/10.1145%2F363235.363259)
 
 (ref-hogan2021)=
 Hogan, A., E. Blomqvist, M. Cochez, C. d'Amato, G. de Melo, et al. (2021).
 "Knowledge Graphs." *ACM Computing Surveys* 54(4), article 71.
-[[link]](https://dl.acm.org/doi/10%2E1145/3447772)
+[[link]](https://dl.acm.org/doi/10.1145%2F3447772)
 
 (ref-lambek1986)=
 Lambek, J., and P. J. Scott (1986). *Introduction to Higher Order Categorical
@@ -509,7 +494,7 @@ of Standard ML (Revised)*. MIT Press.
 
 (ref-modelica2023)=
 Modelica Association (2023). *Modelica Language Specification*, version 3.6.
-[[link]](https://specification.modelica.org/maint/3.6/.)
+[[link]](https://specification.modelica.org/maint/3.6/)
 
 (ref-noy2019)=
 Noy, N., Y. Gao, A. Jain, A. Narayanan, A. Patterson, and J. Taylor (2019).
@@ -541,4 +526,4 @@ Overview*, 2nd ed. W3C Recommendation.
 Wieland, V., T. Cwik, G. J. Müller, S. Schmidt, and M. Wolters (2012). "A new
 comparative approach to macroeconomic modeling and policy analysis." *Journal
 of Economic Behavior & Organization* 83(3), 523–541.
-[[link]](https://hdl.handle.net/10%2E1016/j.jebo.2012.01.006)
+[[link]](https://hdl.handle.net/10.1016%2Fj.jebo.2012.01.006)
