@@ -64,8 +64,10 @@
 
     <div class="doc-row">
       <aside class="doc-label doc-aside">
-        <p class="doc-aside-label">Contents</p>
-        <nav>
+        <p class="doc-aside-label" id="contents-label">Contents</p>
+        <!-- Labelled so this landmark is distinguishable from the site nav above;
+             aria-labelledby reuses the visible heading rather than repeating it. -->
+        <nav aria-labelledby="contents-label">
           <a href="#introduction-and-proposal">Introduction and Proposal</a>
           <a href="#guidelines-for-papers">Guidelines for Papers</a>
           <a href="#organization">Organization</a>

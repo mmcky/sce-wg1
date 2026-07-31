@@ -64,6 +64,15 @@ try {
 for (const key of ['title', 'abstract']) {
   if (!fm?.[key]) { console.error(`${SRC}: frontmatter is missing \`${key}\`.`); process.exit(1); }
 }
+/* `authors` is already required by the jtex template, so the PDF export fails
+   without it; checking here means the page fails the same way rather than
+   silently rendering an empty byline. */
+if (!Array.isArray(fm.authors) || fm.authors.length === 0 ||
+    !fm.authors.every((a) => a && typeof a.name === 'string' && a.name.trim())) {
+  console.error(`${SRC}: frontmatter \`authors\` must be a non-empty list of entries with a \`name\`, e.g.\n` +
+    '  authors:\n    - name: Ada Lovelace');
+  process.exit(1);
+}
 const ast = mystParse(raw.replace(/^---\n[\s\S]*?\n---\n/, ''));
 
 /* The source is MyST, and three of its constructs have no direct HTML meaning:
@@ -170,8 +179,10 @@ fs.writeFileSync(OUT, `<!DOCTYPE html>
 
     <div class="doc-row">
       <aside class="doc-label doc-aside">
-        <p class="doc-aside-label">Contents</p>
-        <nav>
+        <p class="doc-aside-label" id="contents-label">Contents</p>
+        <!-- Labelled so this landmark is distinguishable from the site nav above;
+             aria-labelledby reuses the visible heading rather than repeating it. -->
+        <nav aria-labelledby="contents-label">
 ${headings.map((h) => `          <a href="#${slug(h)}">${esc(h)}</a>`).join('\n')}
         </nav>
       </aside>
