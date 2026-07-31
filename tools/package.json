@@ -11,6 +11,7 @@
     "js-yaml": "4.1.0",
     "mdast-util-to-hast": "12.3.0",
     "myst-parser": "1.7.3",
-    "myst-to-html": "1.7.3"
+    "myst-to-html": "1.7.3",
+    "mystmd": "1.10.1"
   }
 }

@@ -32,15 +32,34 @@ const PDF_OUT = path.join(ROOT, 'docs/special-issue-proposal.pdf');
 /* myst reads the `exports:` block in the markdown's own frontmatter, which
    points at templates/plain_latex_wide. Skipped with --no-pdf when LaTeX is
    unavailable; the previously built PDF is then copied through unchanged. */
-if (!process.argv.includes('--no-pdf')) {
+const skipPdf = process.argv.includes('--no-pdf');
+if (!skipPdf) {
+  /* mystmd is a dependency of this package, so `npm run build` finds it on PATH
+     without a global install. A failure here is fatal: letting it through would
+     publish a page whose download link points at a stale or missing PDF. */
   try {
     execFileSync('myst', ['build', 'project-a/special-issue-proposal.md', '--pdf'],
       { cwd: ROOT, stdio: 'inherit' });
-  } catch {
-    console.warn('! myst build --pdf failed; reusing the committed PDF. Install mystmd and a LaTeX distribution to rebuild it.');
+  } catch (err) {
+    console.error(`\n${SRC}: \`myst build --pdf\` failed — ${err.message}\n` +
+      'The PDF needs mystmd (installed with this package) and a LaTeX distribution\n' +
+      'providing xelatex with newtx, tcolorbox, nowidow, titlesec, titling, xurl and\n' +
+      'enumitem. Use `npm run build:no-pdf` to regenerate only the page.');
+    process.exit(1);
   }
 }
-fs.copyFileSync(PDF_SRC, PDF_OUT);
+/* The PDF is generated rather than committed, so on a fresh clone it is absent
+   until a full build has run. Under --no-pdf that is expected and the page is
+   still worth generating; otherwise the build above should have produced it. */
+if (fs.existsSync(PDF_SRC)) {
+  fs.copyFileSync(PDF_SRC, PDF_OUT);
+} else if (skipPdf) {
+  console.warn(`! no PDF at ${path.relative(ROOT, PDF_SRC)} — generating the page without it.\n` +
+    '  Run `npm run build` to produce it; CI builds it on every deploy.');
+} else {
+  console.error(`${SRC}: myst reported success but produced no PDF at ${path.relative(ROOT, PDF_SRC)}.`);
+  process.exit(1);
+}
 
 /* --- Page --------------------------------------------------------------- */
 const raw = fs.readFileSync(SRC, 'utf8');
@@ -209,4 +228,6 @@ ${article}
 const refs = (article.match(/id="ref-/g) || []).length;
 const links = (article.match(/href="#ref-/g) || []).length;
 console.log(`docs/project-a.html      ${headings.length} sections, ${refs} references, ${links} citation links`);
-console.log(`docs/special-issue-proposal.pdf   ${fs.statSync(PDF_OUT).size} bytes`);
+console.log(fs.existsSync(PDF_OUT)
+  ? `docs/special-issue-proposal.pdf   ${fs.statSync(PDF_OUT).size} bytes`
+  : 'docs/special-issue-proposal.pdf   not built');
