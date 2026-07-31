@@ -32,23 +32,33 @@ const PDF_OUT = path.join(ROOT, 'docs/special-issue-proposal.pdf');
 /* myst reads the `exports:` block in the markdown's own frontmatter, which
    points at templates/plain_latex_wide. Skipped with --no-pdf when LaTeX is
    unavailable; the previously built PDF is then copied through unchanged. */
-if (!process.argv.includes('--no-pdf')) {
+const skipPdf = process.argv.includes('--no-pdf');
+if (!skipPdf) {
+  /* mystmd is a dependency of this package, so `npm run build` finds it on PATH
+     without a global install. A failure here is fatal: letting it through would
+     publish a page whose download link points at a stale or missing PDF. */
   try {
     execFileSync('myst', ['build', 'project-a/special-issue-proposal.md', '--pdf'],
       { cwd: ROOT, stdio: 'inherit' });
-  } catch {
-    console.warn('! myst build --pdf failed. Install mystmd and a LaTeX distribution to rebuild it.');
+  } catch (err) {
+    console.error(`\n${SRC}: \`myst build --pdf\` failed — ${err.message}\n` +
+      'The PDF needs mystmd (installed with this package) and a LaTeX distribution\n' +
+      'providing xelatex with newtx, tcolorbox, nowidow, titlesec, titling, xurl and\n' +
+      'enumitem. Use `npm run build:no-pdf` to regenerate only the page.');
+    process.exit(1);
   }
 }
-/* The PDF is generated, not committed, so on a fresh clone it is simply absent
-   until the full build has run once. Say so rather than failing on ENOENT —
-   the page is still worth generating, and --no-pdf exists precisely for people
-   who do not have LaTeX. */
+/* The PDF is generated rather than committed, so on a fresh clone it is absent
+   until a full build has run. Under --no-pdf that is expected and the page is
+   still worth generating; otherwise the build above should have produced it. */
 if (fs.existsSync(PDF_SRC)) {
   fs.copyFileSync(PDF_SRC, PDF_OUT);
-} else {
+} else if (skipPdf) {
   console.warn(`! no PDF at ${path.relative(ROOT, PDF_SRC)} — generating the page without it.\n` +
-    '  Run `npm run build` (needs mystmd and LaTeX) to produce it; CI builds it on every deploy.');
+    '  Run `npm run build` to produce it; CI builds it on every deploy.');
+} else {
+  console.error(`${SRC}: myst reported success but produced no PDF at ${path.relative(ROOT, PDF_SRC)}.`);
+  process.exit(1);
 }
 
 /* --- Page --------------------------------------------------------------- */
