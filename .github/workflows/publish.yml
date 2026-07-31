@@ -39,7 +39,10 @@ jobs:
     # To upgrade deliberately: docker pull texlive/texlive:latest && docker inspect
     # --format='{{index .RepoDigests 0}}' texlive/texlive:latest
     container:
-      image: texlive/texlive@sha256:d79913b74afcf48a53ec2ad0d54b70ad3e36d65b4f1de13d811435883c2f1fd9
+      # This is the digest of `latest` / `latest-full` (2.66 GB). Do not
+      # substitute `latest-medium` (0.94 GB) — it has xelatex but not
+      # collection-latexextra, so the build dies on a missing xurl.sty.
+      image: texlive/texlive@sha256:f69ee97de275fd4a2f0f84d7d432063e5a7f79b35512cf3e601b5b95224f3dec
     steps:
       - uses: actions/checkout@v4
 
@@ -58,8 +61,24 @@ jobs:
         working-directory: tools
         run: npm ci
 
-      - name: Check the LaTeX engine is present
-        run: xelatex --version | head -1
+      # A missing style file otherwise surfaces as a LaTeX error buried in a
+      # log, several steps after the image that caused it. Fail here instead,
+      # naming the package — this is what a wrong image tag looks like.
+      - name: Check the LaTeX toolchain is complete
+        shell: sh -eu {0}
+        run: |
+          xelatex --version | head -1
+          missing=
+          for pkg in newtxtext newtxmath tcolorbox nowidow titlesec titling \
+                     xurl enumitem microtype geometry natbib setspace graphicx hyperref; do
+            kpsewhich "$pkg.sty" >/dev/null 2>&1 || missing="$missing $pkg"
+          done
+          if [ -n "$missing" ]; then
+            echo "::error::the TeX image is missing:$missing"
+            echo "The full TeX Live scheme is required — scheme-medium lacks collection-latexextra."
+            exit 1
+          fi
+          echo "ok — every package the template needs is present"
 
       - name: Build the Project A page and PDF
         working-directory: tools
