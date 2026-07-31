@@ -57,12 +57,25 @@
       </div>
     </header>
 
-    <section class="abstract">
-      <h2>Abstract</h2>
-      <p>A computed model's meaning is largely implicit in prose, notation, calibration, and code. Professional convention has helped fill the gaps. But economists increasingly use large language models (AIs) to write, modify, and translate modeling code, and AI output is probabilistic by construction. Unverified, such code can compute a different model from the one intended, its results cannot be cross-checked or reused, and its economic interpretation becomes ambiguous. Verification requires a semantic ontology: an AI-readable, deterministic statement, independent of code and solver, of which economic objects exist, what stands for what, what is written down, and when the interpretation holds. We propose a special issue collecting semantic ontologies for modeling languages, toolkits, empirical methods, and model classes.</p>
+    <section class="doc-row abstract">
+      <div class="doc-label"><h2>Abstract</h2></div>
+      <div class="doc-body"><p>A computed model's meaning is largely implicit in prose, notation, calibration, and code. Professional convention has helped fill the gaps. But economists increasingly use large language models (AIs) to write, modify, and translate modeling code, and AI output is probabilistic by construction. Unverified, such code can compute a different model from the one intended, its results cannot be cross-checked or reused, and its economic interpretation becomes ambiguous. Verification requires a semantic ontology: an AI-readable, deterministic statement, independent of code and solver, of which economic objects exist, what stands for what, what is written down, and when the interpretation holds. We propose a special issue collecting semantic ontologies for modeling languages, toolkits, empirical methods, and model classes.</p></div>
     </section>
 
-    <article class="proposal">
+    <div class="doc-row">
+      <aside class="doc-label doc-aside">
+        <p class="doc-aside-label" id="contents-label">Contents</p>
+        <!-- Labelled so this landmark is distinguishable from the site nav above;
+             aria-labelledby reuses the visible heading rather than repeating it. -->
+        <nav aria-labelledby="contents-label">
+          <a href="#introduction-and-proposal">Introduction and Proposal</a>
+          <a href="#guidelines-for-papers">Guidelines for Papers</a>
+          <a href="#organization">Organization</a>
+          <a href="#research-themes">Research Themes</a>
+          <a href="#references">References</a>
+        </nav>
+      </aside>
+      <article class="doc-body proposal">
 <h2 id="introduction-and-proposal">Introduction and Proposal</h2>
 <p>When economists compute a model, its precise <em>meaning</em> is
 distributed, much of it implicitly, across prose, notation, calibration, and
@@ -476,7 +489,8 @@ are results for the closing comparison to report. <a href="#user-content-fnref-c
 </li>
 </ol>
 </section>
-    </article>
+      </article>
+    </div>
 
     <footer style="display:flex; flex-wrap:wrap; gap:12px 40px; justify-content:space-between; align-items:baseline; padding:44px 0 56px; border-top:1px solid var(--line);">
       <p style="margin:0; font-family:'IBM Plex Mono',monospace; font-size:12.5px; color:var(--muted);">SCE Working Group 1 · Language and Formal Semantics</p>
