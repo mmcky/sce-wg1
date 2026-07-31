@@ -19,7 +19,14 @@ The group runs two complementary projects:
 
 Project B grew out of a proposal put to the CEF 2026 pre-conference; it is coordinated by Matt McKay, with QuantEcon hosting and publishing the collection.
 
-The Project A special-issue proposal lives in [`project-a/`](project-a/): [`special-issue-proposal.md`](project-a/special-issue-proposal.md) is the source, typeset to [`special-issue-proposal.pdf`](project-a/special-issue-proposal.pdf) with `myst build project-a/special-issue-proposal.md --pdf` using the LaTeX template in [`templates/`](templates/).
+The Project A special-issue proposal lives in [`project-a/`](project-a/). [`special-issue-proposal.md`](project-a/special-issue-proposal.md) is the **single source** for both the Project A page and the downloadable PDF — edit the markdown, never the generated HTML:
+
+```
+cd tools && npm install     # once
+npm run build               # regenerates the page and the PDF
+```
+
+This writes [`docs/project-a.html`](docs/project-a.html) (the page, in the shared site chrome) and `docs/special-issue-proposal.pdf` (typeset via the LaTeX template in [`templates/`](templates/)). Both are committed, so the site needs no build step to deploy. Use `npm run build:no-pdf` if you don't have a LaTeX distribution installed; the previously built PDF is then reused.
 
 Drafts for the Project B specification process live in [`project-b/`](project-b/):
 
