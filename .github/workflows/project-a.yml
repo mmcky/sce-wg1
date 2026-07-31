@@ -1,0 +1,141 @@
+# Regenerates the Project A page and PDF from project-a/special-issue-proposal.md.
+#
+# The markdown is the source of truth, and the generated files are committed so
+# that GitHub Pages (which serves main:/docs directly) needs no build step. This
+# workflow keeps the two in step so an author does not need Node or LaTeX locally.
+#
+# On a pull request it builds and attaches the results as artifacts, so the
+# rendered page and PDF can be reviewed before merging. It deliberately does not
+# push to the PR branch: contributions arrive from forks, where the workflow token
+# is read-only and a push would fail.
+#
+# On a push to main it rebuilds and commits the results back.
+
+name: Project A page and PDF
+
+# The two path lists are duplicated deliberately: GitHub Actions does not
+# support YAML anchors, so they have to be kept in step by hand.
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'project-a/special-issue-proposal.md'
+      - 'docs/proposal.css'
+      - 'tools/**'
+      - '.github/workflows/project-a.yml'
+  pull_request:
+    paths:
+      - 'project-a/special-issue-proposal.md'
+      - 'docs/proposal.css'
+      - 'tools/**'
+      - '.github/workflows/project-a.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: project-a-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    # Pinned by digest, not by tag: `latest-*` tags move, and a TeX Live change
+    # can reflow the PDF's line breaks. The full scheme is required — newtx lives
+    # in collection-fontsextra and tcolorbox/nowidow/titling/xurl/enumitem in
+    # collection-latexextra, neither of which scheme-medium carries.
+    # To upgrade deliberately: docker pull texlive/texlive:latest && docker inspect
+    # --format='{{index .RepoDigests 0}}' texlive/texlive:latest
+    container:
+      image: texlive/texlive@sha256:d79913b74afcf48a53ec2ad0d54b70ad3e36d65b4f1de13d811435883c2f1fd9
+    permissions:
+      # Needed only by the commit step below, which runs on main pushes.
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+
+      # The container runs as root while the checkout is owned by the runner user,
+      # which git otherwise refuses to operate on.
+      - name: Trust the workspace
+        run: git config --global --add safe.directory "$GITHUB_WORKSPACE"
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+          cache-dependency-path: tools/package-lock.json
+
+      - name: Install build dependencies
+        working-directory: tools
+        run: npm ci
+
+      - name: Check the LaTeX engine is present
+        run: xelatex --version | head -1
+
+      - name: Build the page and the PDF
+        working-directory: tools
+        run: npm run build
+
+      # A regression here is silent — the page still builds, it just loses content —
+      # so the things most likely to break are asserted rather than eyeballed.
+      - name: Check the generated page
+        run: |
+          set -eu
+          page=docs/project-a.html
+          fail() { echo "::error file=$page::$1"; exit 1; }
+
+          anchors=$(grep -o 'id="ref-[^"]*"' "$page" | sed 's/id="//;s/"//' | sort -u)
+          targets=$(grep -o 'href="#ref-[^"]*"' "$page" | sed 's/href="#//;s/"//' | sort -u)
+          n_anchors=$(printf '%s\n' "$anchors" | grep -c . || true)
+          n_links=$(grep -o 'href="#ref-' "$page" | grep -c . || true)
+          dangling=$(comm -13 <(printf '%s\n' "$anchors") <(printf '%s\n' "$targets") | grep -c . || true)
+
+          [ "$n_anchors" -gt 0 ] || fail "no reference anchors were generated"
+          [ "$dangling" -eq 0 ]  || fail "$dangling citation link(s) point at missing anchors"
+          grep -q 'displaybox' "$page" || fail "the display boxes lost their styling hook"
+          ! grep -q '<!--\s*needs' "$page" || fail "an editorial comment leaked into the page"
+          ! grep -q '{raw:tex}' "$page"    || fail "a raw LaTeX block leaked into the page"
+          ! grep -q '::::' "$page"         || fail "an unrendered MyST directive fence leaked into the page"
+
+          # poppler is not part of TeX Live, so the PDF is checked without it.
+          pdf=docs/special-issue-proposal.pdf
+          head -c 5 "$pdf" | grep -q '%PDF-' || fail "the PDF is missing or not a PDF"
+          bytes=$(wc -c < "$pdf")
+          [ "$bytes" -gt 20000 ] || fail "the PDF is only $bytes bytes — the LaTeX run probably failed"
+
+          echo "ok — $n_anchors anchors, $n_links citation links, 0 dangling; PDF $bytes bytes"
+
+      # Fork PRs get a read-only token, so the results are attached for review
+      # rather than pushed. The author does not need Node or LaTeX to see them.
+      - name: Upload the results for review
+        if: github.event_name == 'pull_request'
+        uses: actions/upload-artifact@v4
+        with:
+          name: project-a-preview
+          path: |
+            docs/project-a.html
+            docs/proposal.css
+            docs/chrome.css
+            docs/chrome.js
+            docs/special-issue-proposal.pdf
+          retention-days: 14
+
+      - name: Commit the regenerated files
+        if: github.event_name != 'pull_request'
+        run: |
+          set -eu
+          if git diff --quiet -- docs/project-a.html docs/special-issue-proposal.pdf \
+                                 project-a/special-issue-proposal.pdf; then
+            echo "already up to date — nothing to commit"
+            exit 0
+          fi
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/project-a.html docs/special-issue-proposal.pdf \
+                  project-a/special-issue-proposal.pdf
+          git commit -m "Rebuild the Project A page and PDF from the proposal markdown
+
+          Generated by .github/workflows/project-a.yml from
+          ${GITHUB_SHA}. Edit project-a/special-issue-proposal.md, not these files."
+          git push
