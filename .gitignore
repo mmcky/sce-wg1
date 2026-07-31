@@ -1,3 +1,9 @@
 _build/
 .DS_Store
 node_modules/
+
+# Generated from project-a/special-issue-proposal.md by tools/build-project-a.mjs
+# and rebuilt by .github/workflows/publish.yml on every deploy. Edit the markdown.
+docs/project-a.html
+docs/special-issue-proposal.pdf
+project-a/special-issue-proposal.pdf

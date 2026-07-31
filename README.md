@@ -26,7 +26,9 @@ cd tools && npm install     # once
 npm run build               # regenerates the page and the PDF
 ```
 
-This writes [`docs/project-a.html`](docs/project-a.html) (the page, in the shared site chrome) and `docs/special-issue-proposal.pdf` (typeset via the LaTeX template in [`templates/`](templates/)). Both are committed, so the site needs no build step to deploy. Use `npm run build:no-pdf` if you don't have a LaTeX distribution installed; the previously built PDF is then reused.
+This writes `docs/project-a.html` (the page, in the shared site chrome) and `docs/special-issue-proposal.pdf` (typeset via the LaTeX template in [`templates/`](templates/)). Use `npm run build:no-pdf` if you don't have a LaTeX distribution installed; the previously built PDF is then reused.
+
+You don't have to run any of this to change the proposal. Both outputs are generated in CI by [`.github/workflows/publish.yml`](.github/workflows/publish.yml) on every deploy, so they are **not committed** — edit the markdown and open a pull request, and the workflow attaches the rendered page and PDF to the run for review. Building locally is only for a faster preview.
 
 Drafts for the Project B specification process live in [`project-b/`](project-b/):
 

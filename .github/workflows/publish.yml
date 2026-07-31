@@ -1,0 +1,142 @@
+# Builds and publishes the site to GitHub Pages.
+#
+# project-a/special-issue-proposal.md is the source of truth for the Project A
+# page and its PDF; both are generated here on every deploy rather than being
+# committed, so they cannot drift from the markdown and an author does not need
+# Node or LaTeX installed to change their own document.
+#
+# The rest of docs/ is hand-written and published as-is.
+#
+# Pages must be set to build from GitHub Actions for this to take effect:
+# Settings -> Pages -> Build and deployment -> Source: GitHub Actions.
+# Until that is switched, this workflow builds and checks, but the legacy
+# branch build is still what serves the site.
+
+name: Publish
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+# Let a run finish rather than cancelling it mid-deploy; queued pushes coalesce.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    # Pinned by digest, not by tag: `latest-*` tags move, and a TeX Live change
+    # can reflow the PDF's line breaks, which matters for a document going to a
+    # journal. The full scheme is required — newtx is in collection-fontsextra
+    # and tcolorbox/nowidow/titling/xurl/enumitem in collection-latexextra,
+    # neither of which scheme-medium carries.
+    # To upgrade deliberately: docker pull texlive/texlive:latest && docker inspect
+    # --format='{{index .RepoDigests 0}}' texlive/texlive:latest
+    container:
+      image: texlive/texlive@sha256:d79913b74afcf48a53ec2ad0d54b70ad3e36d65b4f1de13d811435883c2f1fd9
+    steps:
+      - uses: actions/checkout@v4
+
+      # The container runs as root while the checkout is owned by the runner
+      # user, which git otherwise refuses to operate on.
+      - name: Trust the workspace
+        run: git config --global --add safe.directory "$GITHUB_WORKSPACE"
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+          cache-dependency-path: tools/package-lock.json
+
+      - name: Install build dependencies
+        working-directory: tools
+        run: npm ci
+
+      - name: Check the LaTeX engine is present
+        run: xelatex --version | head -1
+
+      - name: Build the Project A page and PDF
+        working-directory: tools
+        run: npm run build
+
+      # A regression here is silent — the page still builds, it just loses
+      # content — so the things most likely to break are asserted, not eyeballed.
+      - name: Check the generated page
+        run: |
+          set -eu
+          page=docs/project-a.html
+          fail() { echo "::error file=$page::$1"; exit 1; }
+
+          anchors=$(grep -o 'id="ref-[^"]*"' "$page" | sed 's/id="//;s/"//' | sort -u)
+          targets=$(grep -o 'href="#ref-[^"]*"' "$page" | sed 's/href="#//;s/"//' | sort -u)
+          n_anchors=$(printf '%s\n' "$anchors" | grep -c . || true)
+          n_links=$(grep -o 'href="#ref-' "$page" | grep -c . || true)
+          dangling=$(comm -13 <(printf '%s\n' "$anchors") <(printf '%s\n' "$targets") | grep -c . || true)
+
+          [ "$n_anchors" -gt 0 ] || fail "no reference anchors were generated"
+          [ "$dangling" -eq 0 ]  || fail "$dangling citation link(s) point at missing anchors"
+          grep -q 'displaybox' "$page" || fail "the display boxes lost their styling hook"
+          ! grep -q '<!--\s*needs' "$page" || fail "an editorial comment leaked into the page"
+          ! grep -q '{raw:tex}' "$page"    || fail "a raw LaTeX block leaked into the page"
+          ! grep -q '::::' "$page"         || fail "an unrendered MyST directive fence leaked into the page"
+
+          # poppler is not part of TeX Live, so the PDF is checked without it.
+          pdf=docs/special-issue-proposal.pdf
+          head -c 5 "$pdf" | grep -q '%PDF-' || fail "the PDF is missing or not a PDF"
+          bytes=$(wc -c < "$pdf")
+          [ "$bytes" -gt 20000 ] || fail "the PDF is only $bytes bytes — the LaTeX run probably failed"
+
+          echo "ok — $n_anchors anchors, $n_links citation links, 0 dangling; PDF $bytes bytes"
+
+      # The generated page is no longer committed, so a broken internal link
+      # would only show up in a browser. Catch it here instead.
+      - name: Check the site's internal links resolve
+        run: |
+          set -eu
+          cd docs
+          missing=0
+          for f in *.html; do
+            for href in $(grep -oE 'href="[A-Za-z0-9._-]+\.(html|pdf|css|js)"' "$f" \
+                          | sed 's/href="//;s/"//' | sort -u); do
+              [ -e "$href" ] || { echo "::error file=docs/$f::links to missing $href"; missing=1; }
+            done
+          done
+          [ "$missing" -eq 0 ] || exit 1
+          echo "ok — all internal links resolve"
+
+      # Fork PRs get a read-only token and cannot deploy, so the built site is
+      # attached instead. The author can see the rendered result without
+      # installing Node or LaTeX.
+      - name: Upload the built site for review
+        if: github.event_name == 'pull_request'
+        uses: actions/upload-artifact@v4
+        with:
+          name: site-preview
+          path: docs
+          retention-days: 14
+
+      - name: Package the site for Pages
+        if: github.event_name != 'pull_request'
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: docs
+
+  deploy:
+    needs: build
+    if: github.event_name != 'pull_request'
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
