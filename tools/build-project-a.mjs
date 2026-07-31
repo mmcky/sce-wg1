@@ -37,10 +37,19 @@ if (!process.argv.includes('--no-pdf')) {
     execFileSync('myst', ['build', 'project-a/special-issue-proposal.md', '--pdf'],
       { cwd: ROOT, stdio: 'inherit' });
   } catch {
-    console.warn('! myst build --pdf failed; reusing the committed PDF. Install mystmd and a LaTeX distribution to rebuild it.');
+    console.warn('! myst build --pdf failed. Install mystmd and a LaTeX distribution to rebuild it.');
   }
 }
-fs.copyFileSync(PDF_SRC, PDF_OUT);
+/* The PDF is generated, not committed, so on a fresh clone it is simply absent
+   until the full build has run once. Say so rather than failing on ENOENT —
+   the page is still worth generating, and --no-pdf exists precisely for people
+   who do not have LaTeX. */
+if (fs.existsSync(PDF_SRC)) {
+  fs.copyFileSync(PDF_SRC, PDF_OUT);
+} else {
+  console.warn(`! no PDF at ${path.relative(ROOT, PDF_SRC)} — generating the page without it.\n` +
+    '  Run `npm run build` (needs mystmd and LaTeX) to produce it; CI builds it on every deploy.');
+}
 
 /* --- Page --------------------------------------------------------------- */
 const raw = fs.readFileSync(SRC, 'utf8');
@@ -209,4 +218,6 @@ ${article}
 const refs = (article.match(/id="ref-/g) || []).length;
 const links = (article.match(/href="#ref-/g) || []).length;
 console.log(`docs/project-a.html      ${headings.length} sections, ${refs} references, ${links} citation links`);
-console.log(`docs/special-issue-proposal.pdf   ${fs.statSync(PDF_OUT).size} bytes`);
+console.log(fs.existsSync(PDF_OUT)
+  ? `docs/special-issue-proposal.pdf   ${fs.statSync(PDF_OUT).size} bytes`
+  : 'docs/special-issue-proposal.pdf   not built');

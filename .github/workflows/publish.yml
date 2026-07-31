@@ -67,17 +67,22 @@ jobs:
 
       # A regression here is silent — the page still builds, it just loses
       # content — so the things most likely to break are asserted, not eyeballed.
+      # The TeX Live image ships no bash, so GitHub falls back to `sh -e {0}`
+      # (dash). Declared explicitly, and written to POSIX — no process
+      # substitution, which is what broke the first run.
       - name: Check the generated page
+        shell: sh -eu {0}
         run: |
-          set -eu
           page=docs/project-a.html
           fail() { echo "::error file=$page::$1"; exit 1; }
 
-          anchors=$(grep -o 'id="ref-[^"]*"' "$page" | sed 's/id="//;s/"//' | sort -u)
-          targets=$(grep -o 'href="#ref-[^"]*"' "$page" | sed 's/href="#//;s/"//' | sort -u)
-          n_anchors=$(printf '%s\n' "$anchors" | grep -c . || true)
+          anchors=$(mktemp)
+          targets=$(mktemp)
+          grep -o 'id="ref-[^"]*"'    "$page" | sed 's/id="//;s/"//'    | sort -u > "$anchors"
+          grep -o 'href="#ref-[^"]*"' "$page" | sed 's/href="#//;s/"//' | sort -u > "$targets"
+          n_anchors=$(grep -c . "$anchors" || true)
           n_links=$(grep -o 'href="#ref-' "$page" | grep -c . || true)
-          dangling=$(comm -13 <(printf '%s\n' "$anchors") <(printf '%s\n' "$targets") | grep -c . || true)
+          dangling=$(comm -13 "$anchors" "$targets" | grep -c . || true)
 
           [ "$n_anchors" -gt 0 ] || fail "no reference anchors were generated"
           [ "$dangling" -eq 0 ]  || fail "$dangling citation link(s) point at missing anchors"
@@ -97,8 +102,8 @@ jobs:
       # The generated page is no longer committed, so a broken internal link
       # would only show up in a browser. Catch it here instead.
       - name: Check the site's internal links resolve
+        shell: sh -eu {0}
         run: |
-          set -eu
           cd docs
           missing=0
           for f in *.html; do
