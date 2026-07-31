@@ -44,7 +44,26 @@ fs.copyFileSync(PDF_SRC, PDF_OUT);
 
 /* --- Page --------------------------------------------------------------- */
 const raw = fs.readFileSync(SRC, 'utf8');
-const fm = yaml.load(raw.match(/^---\n([\s\S]*?)\n---\n/)[1]);
+
+/* The page's title, subtitle, authors and abstract all come from the frontmatter,
+   so a missing or malformed block should say so rather than fail somewhere later. */
+const fmBlock = raw.match(/^---\n([\s\S]*?)\n---\n/);
+if (!fmBlock) {
+  console.error(`${SRC}: no YAML frontmatter block found.\n` +
+    'The page needs `title`, `authors` and `abstract` from it. Expected the file to open with:\n' +
+    '  ---\n  title: ...\n  ---');
+  process.exit(1);
+}
+let fm;
+try {
+  fm = yaml.load(fmBlock[1]);
+} catch (err) {
+  console.error(`${SRC}: could not parse the YAML frontmatter — ${err.message}`);
+  process.exit(1);
+}
+for (const key of ['title', 'abstract']) {
+  if (!fm?.[key]) { console.error(`${SRC}: frontmatter is missing \`${key}\`.`); process.exit(1); }
+}
 const ast = mystParse(raw.replace(/^---\n[\s\S]*?\n---\n/, ''));
 
 /* The source is MyST, and three of its constructs have no direct HTML meaning:
@@ -58,7 +77,10 @@ const ast = mystParse(raw.replace(/^---\n[\s\S]*?\n---\n/, ''));
     const c = kids[i];
     if (c.type === 'raw' || c.type === 'comment' ||
         (c.type === 'html' && /^\s*<!--/.test(c.value || ''))) { kids.splice(i--, 1); continue; }
-    if (c.class) c.data = { ...(c.data || {}), hProperties: { className: c.class } };
+    if (c.class) {
+      c.data = { ...(c.data || {}),
+                 hProperties: { ...(c.data?.hProperties || {}), className: c.class } };
+    }
     if (c.type === 'mystTarget' && c.label) {
       kids[i] = { type: 'span', children: [], data: { hProperties: { id: c.label } } };
     }
@@ -66,10 +88,10 @@ const ast = mystParse(raw.replace(/^---\n[\s\S]*?\n---\n/, ''));
   }
 })(ast);
 
-const body = mystToHtml(ast, {
-  hast: { allowDangerousHtml: true },
-  stringifyHtml: { allowDangerousHtml: true },
-});
+/* Raw HTML is deliberately not passed through. It would not survive the LaTeX
+   path to the PDF, so allowing it on the web would let the two outputs diverge
+   silently; escaped instead, it shows up as visible text and gets noticed. */
+const body = mystToHtml(ast);
 
 /* Section nav is derived from the document's own headings, so adding or
    renaming a section in the markdown updates the nav without touching this file. */
@@ -141,14 +163,22 @@ fs.writeFileSync(OUT, `<!DOCTYPE html>
       </div>
     </header>
 
-    <section class="abstract">
-      <h2>Abstract</h2>
-      <p>${esc(abstract)}</p>
+    <section class="doc-row abstract">
+      <div class="doc-label"><h2>Abstract</h2></div>
+      <div class="doc-body"><p>${esc(abstract)}</p></div>
     </section>
 
-    <article class="proposal">
+    <div class="doc-row">
+      <aside class="doc-label doc-aside">
+        <p class="doc-aside-label">Contents</p>
+        <nav>
+${headings.map((h) => `          <a href="#${slug(h)}">${esc(h)}</a>`).join('\n')}
+        </nav>
+      </aside>
+      <article class="doc-body proposal">
 ${article}
-    </article>
+      </article>
+    </div>
 
     <footer style="display:flex; flex-wrap:wrap; gap:12px 40px; justify-content:space-between; align-items:baseline; padding:44px 0 56px; border-top:1px solid var(--line);">
       <p style="margin:0; font-family:'IBM Plex Mono',monospace; font-size:12.5px; color:var(--muted);">SCE Working Group 1 · Language and Formal Semantics</p>
