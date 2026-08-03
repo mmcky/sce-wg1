@@ -37,8 +37,8 @@ ul.plain li::marker{color:var(--accent);}
       <a href="./" class="nav-home">SCE&nbsp;·&nbsp;WG1</a>
       <div style="display:flex; gap:28px; flex-wrap:wrap; align-items:center;">
         <a href="#library" class="nav-link">The library</a>
-        <a href="#groups" class="nav-link">Model groups</a>
-        <a href="#baselines" class="nav-link">Baselines</a>
+        <a href="#groups" class="nav-link">Baselines</a>
+        <a href="#baselines" class="nav-link">Templates</a>
         <a href="#ask" class="nav-link">The ask</a>
         <a href="#roadmap" class="nav-link">Roadmap</a>
         <a href="#contribute" class="nav-link-join">Contribute</a>
@@ -53,7 +53,7 @@ ul.plain li::marker{color:var(--accent);}
     <header style="padding:88px 0 72px;">
       <p style="margin:0 0 20px; font-family:'IBM Plex Mono',monospace; font-size:13px; letter-spacing:0.08em; text-transform:uppercase; color:var(--accent);">Project B · SCE WG1</p>
       <h1 style="margin:0; font-family:'Newsreader',serif; font-weight:500; font-size:clamp(38px, 5.5vw, 58px); line-height:1.08; letter-spacing:-0.01em; max-width:18ch; text-wrap:pretty;">A community library of baseline models.</h1>
-      <p style="margin:28px 0 0; font-size:19px; line-height:1.55; color:var(--muted); max-width:58ch; text-wrap:pretty;">The canonical models of the field, implemented and documented across the toolkits that can solve them. Same model, multiple tools, side-by-side notation, honest commentary on tradeoffs — each implementation authored and maintained by the project that built the toolkit.</p>
+      <p style="margin:28px 0 0; font-size:19px; line-height:1.55; color:var(--muted); max-width:72ch; text-wrap:pretty;">The canonical models of the field, implemented and documented across the toolkits that can solve them. Same model, multiple tools, side-by-side notation, honest commentary on tradeoffs — each implementation authored and maintained by the project that built the toolkit.</p>
       <div style="display:flex; flex-wrap:wrap; gap:8px 40px; margin-top:36px;">
         <p style="margin:0; font-size:15px;">Coordinated by <strong style="font-weight:600;">Matt McKay</strong></p>
       </div>
@@ -64,18 +64,22 @@ ul.plain li::marker{color:var(--accent);}
       <div style="flex:1 1 150px; max-width:190px;">
         <h2 style="margin:0; font-family:'IBM Plex Mono',monospace; font-size:12.5px; font-weight:400; letter-spacing:0.08em; text-transform:uppercase; color:var(--accent);">01 · Why</h2>
       </div>
-      <div style="flex:999 1 400px; min-width:0; display:grid; gap:28px; max-width:62ch;">
+      <div style="flex:999 1 400px; min-width:0; display:grid; gap:28px;">
         <div>
-          <h3 style="margin:0 0 12px; font-family:'Newsreader',serif; font-weight:500; font-size:26px; line-height:1.2;">The plurality is real but invisible</h3>
-          <p style="margin:0; font-size:16.5px; line-height:1.65; text-wrap:pretty;">Computational economics has more than a dozen serious open-source toolkits across MATLAB, Python and Julia, each with genuinely distinct strengths. Researchers have no neutral way to compare them, no shared library of canonical models, and no on-ramp that treats the ecosystem as a whole. New users default to whatever their advisor uses; experienced researchers stay locked into the first tool they learned.</p>
+          <h3 style="margin:0 0 12px; font-family:'Newsreader',serif; font-weight:500; font-size:26px; line-height:1.2;">Strong toolkits, siloed communities</h3>
+          <p style="margin:0; font-size:16.5px; line-height:1.65; text-wrap:pretty;">Computational economics has more than a dozen serious open-source toolkits across MATLAB, Python and Julia, each with distinct strengths — and no easy way to compare them, no shared library of canonical models, no on-ramp to the ecosystem as a whole. Users stay with the first tool they learn, and the projects themselves have no standing channel connecting them.</p>
         </div>
         <div>
-          <h3 style="margin:0 0 12px; font-family:'Newsreader',serif; font-weight:500; font-size:26px; line-height:1.2;">What a shared corpus buys us</h3>
+          <h3 style="margin:0 0 12px; font-family:'Newsreader',serif; font-weight:500; font-size:26px; line-height:1.2;">Community first, corpus second</h3>
+          <p style="margin:0; font-size:16.5px; line-height:1.65; text-wrap:pretty;">The first thing this project builds is the community: the toolkit projects united in one group, with common pathways of communication and a shared library of tooling maintained together. The corpus of baseline models is the goal, but it is the community that produces it and keeps it alive.</p>
+        </div>
+        <div>
+          <h3 style="margin:0 0 12px; font-family:'Newsreader',serif; font-weight:500; font-size:26px; line-height:1.2;">What the shared corpus then buys us</h3>
           <ul class="plain">
-            <li><strong style="font-weight:600;">A community asset.</strong> The field's first cross-toolkit reference — a neutral on-ramp for new users, and a showcase for the projects that build the tools.</li>
-            <li><strong style="font-weight:600;">A test corpus for Project A.</strong> <a href="./#projects">Project A</a> asks each toolkit team to state formally what its model files mean. A curated set of worked models is what those statements have to account for, and what a shared semantic schema can be validated against.</li>
-            <li><strong style="font-weight:600;">Substrate for AI assistance.</strong> Exactly the corpus an assistant needs to answer <em>which tool fits my problem?</em> and <em>translate my model from X to Y</em>. Standards make AI useful; AI makes the library findable.</li>
-            <li><strong style="font-weight:600;">A proving ground for standards.</strong> As shared schemas emerge from the working group — steady states, IRFs, Jacobians — the library demonstrates them in working code rather than in prose.</li>
+            <li><strong style="font-weight:600;">A community resource, built together.</strong> The field's first cross-toolkit reference — an on-ramp for new users and a showcase for the projects behind the tools.</li>
+            <li><strong style="font-weight:600;">A test corpus for <a href="./#projects">Project A</a>.</strong> When toolkit teams state formally what their model files mean, a curated set of worked models is what those statements have to account for.</li>
+            <li><strong style="font-weight:600;">Substrate for AI assistance.</strong> Exactly the corpus an assistant needs to answer <em>which tool fits my problem?</em> and <em>translate my model from X to Y</em>.</li>
+            <li><strong style="font-weight:600;">A proving ground for standards.</strong> Shared schemas from the working group — steady states, IRFs, Jacobians — demonstrated in working code rather than prose.</li>
           </ul>
         </div>
       </div>
@@ -86,90 +90,90 @@ ul.plain li::marker{color:var(--accent);}
         <h2 style="margin:0; font-family:'IBM Plex Mono',monospace; font-size:12.5px; font-weight:400; letter-spacing:0.08em; text-transform:uppercase; color:var(--accent);">02 · The library</h2>
       </div>
       <div style="flex:999 1 400px; min-width:0; display:grid; gap:24px;">
-        <p style="margin:0; font-size:16.5px; line-height:1.65; max-width:62ch; text-wrap:pretty;">Each participating project contributes along two tracks. The first makes the toolkits comparable; the second lets each project show what it is actually best at.</p>
+        <p style="margin:0; font-size:16.5px; line-height:1.65; text-wrap:pretty;">Each participating project makes two contributions. The first makes the toolkits comparable; the second lets each project show what it is actually best at.</p>
         <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(270px, 1fr)); gap:20px;">
           <article style="display:flex; flex-direction:column; gap:14px; border:1px solid var(--line); background:var(--surface); padding:28px 26px;">
-            <span style="font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:0.08em; text-transform:uppercase; color:var(--accent);">Track 1</span>
-            <h3 style="margin:0; font-family:'Newsreader',serif; font-weight:500; font-size:23px; line-height:1.25; text-wrap:pretty;">A shared baseline model</h3>
-            <p style="margin:0; font-size:15.5px; line-height:1.6; color:var(--muted); text-wrap:pretty; flex:1;">Where several toolkits solve the same class of problem, the group coordinates them around one agreed baseline — same calibration, same reported objects — so results line up side by side and divergences are visible rather than buried.</p>
+            <span style="font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:0.08em; text-transform:uppercase; color:var(--accent);">Contribution 1</span>
+            <h3 style="margin:0; font-family:'Newsreader',serif; font-weight:500; font-size:23px; line-height:1.25; text-wrap:pretty;">Baselines from the shared set</h3>
+            <p style="margin:0; font-size:15.5px; line-height:1.6; color:var(--muted); text-wrap:pretty; flex:1;">Each project solves the baseline models it has chosen — same calibration, same reported objects — so results line up side by side and divergences are visible rather than buried.</p>
           </article>
           <article style="display:flex; flex-direction:column; gap:14px; border:1px solid var(--line); background:var(--surface); padding:28px 26px;">
-            <span style="font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:0.08em; text-transform:uppercase; color:var(--accent);">Track 2</span>
+            <span style="font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:0.08em; text-transform:uppercase; color:var(--accent);">Contribution 2</span>
             <h3 style="margin:0; font-family:'Newsreader',serif; font-weight:500; font-size:23px; line-height:1.25; text-wrap:pretty;">An author's-choice showcase</h3>
             <p style="margin:0; font-size:15.5px; line-height:1.6; color:var(--muted); text-wrap:pretty; flex:1;">A tutorial of the project's own choosing, on the problems its toolkit was built for. A common baseline alone would flatten the differences that matter; this is where each project argues its own case.</p>
           </article>
         </div>
-        <p style="margin:0; font-size:16.5px; line-height:1.65; max-width:62ch; text-wrap:pretty;">Both are published in existing notation — the model as its toolkit states it, not translated into a house dialect — with per-model metadata, an honest note on tradeoffs and limitations, and continuous integration that runs each implementation and flags breakage.</p>
+        <p style="margin:0; font-size:16.5px; line-height:1.65; text-wrap:pretty;">Both are published in the toolkit's own notation — no house dialect — with per-model metadata, honest notes on tradeoffs, and CI that runs each implementation and flags breakage.</p>
       </div>
     </section>
 
     <section id="groups" style="display:flex; flex-wrap:wrap; gap:20px 56px; padding:64px 0; border-top:1px solid var(--line);">
       <div style="flex:1 1 150px; max-width:190px;">
-        <h2 style="margin:0; font-family:'IBM Plex Mono',monospace; font-size:12.5px; font-weight:400; letter-spacing:0.08em; text-transform:uppercase; color:var(--accent);">03 · Model groups</h2>
+        <h2 style="margin:0; font-family:'IBM Plex Mono',monospace; font-size:12.5px; font-weight:400; letter-spacing:0.08em; text-transform:uppercase; color:var(--accent);">03 · The baseline set</h2>
       </div>
       <div style="flex:999 1 400px; min-width:0; display:grid; gap:24px;">
-        <p style="margin:0; font-size:16.5px; line-height:1.65; max-width:62ch; text-wrap:pretty;">Projects are coordinated in groups by problem class, since that is the level at which a shared baseline makes sense. Four groups are proposed as a starting point:</p>
+        <p style="margin:0; font-size:16.5px; line-height:1.65; text-wrap:pretty;">The working group provides a set of baseline models. Each project chooses as many as its toolkit can solve — several or just one — and submits a tutorial for each. Four models seed the set:</p>
         <div style="display:grid; gap:0;">
           <div style="display:flex; flex-wrap:wrap; gap:6px 32px; align-items:baseline; padding:18px 0; border-top:1px solid var(--line);">
-            <p style="margin:0; flex:1 1 240px; font-size:16.5px; line-height:1.5; font-weight:600;">Incomplete-markets heterogeneous agents</p>
-            <p style="margin:0; flex:2 1 260px; font-size:15.5px; line-height:1.55; color:var(--muted); text-wrap:pretty;">Candidate baselines: Aiyagari; Krusell–Smith</p>
+            <p style="margin:0; flex:1 1 240px; font-size:16.5px; line-height:1.5; font-weight:600;">Aiyagari · Krusell–Smith</p>
+            <p style="margin:0; flex:2 1 260px; font-size:15.5px; line-height:1.55; color:var(--muted); text-wrap:pretty;">Incomplete-markets heterogeneous agents</p>
           </div>
           <div style="display:flex; flex-wrap:wrap; gap:6px 32px; align-items:baseline; padding:18px 0; border-top:1px solid var(--line);">
-            <p style="margin:0; flex:1 1 240px; font-size:16.5px; line-height:1.5; font-weight:600;">HANK</p>
-            <p style="margin:0; flex:2 1 260px; font-size:15.5px; line-height:1.55; color:var(--muted); text-wrap:pretty;">Candidate baseline: a two-asset HANK model</p>
+            <p style="margin:0; flex:1 1 240px; font-size:16.5px; line-height:1.5; font-weight:600;">A two-asset HANK model</p>
+            <p style="margin:0; flex:2 1 260px; font-size:15.5px; line-height:1.55; color:var(--muted); text-wrap:pretty;">Heterogeneous-agent New Keynesian</p>
           </div>
           <div style="display:flex; flex-wrap:wrap; gap:6px 32px; align-items:baseline; padding:18px 0; border-top:1px solid var(--line);">
-            <p style="margin:0; flex:1 1 240px; font-size:16.5px; line-height:1.5; font-weight:600;">DSGE</p>
-            <p style="margin:0; flex:2 1 260px; font-size:15.5px; line-height:1.55; color:var(--muted); text-wrap:pretty;">Candidate baseline: a small New Keynesian DSGE model</p>
+            <p style="margin:0; flex:1 1 240px; font-size:16.5px; line-height:1.5; font-weight:600;">A small New Keynesian DSGE model</p>
+            <p style="margin:0; flex:2 1 260px; font-size:15.5px; line-height:1.55; color:var(--muted); text-wrap:pretty;">Representative-agent DSGE</p>
           </div>
           <div style="display:flex; flex-wrap:wrap; gap:6px 32px; align-items:baseline; padding:18px 0; border-top:1px solid var(--line); border-bottom:1px solid var(--line);">
-            <p style="margin:0; flex:1 1 240px; font-size:16.5px; line-height:1.5; font-weight:600;">Agent-based macro</p>
-            <p style="margin:0; flex:2 1 260px; font-size:15.5px; line-height:1.55; color:var(--muted); text-wrap:pretty;">Candidate baseline: a baseline ABM macro model</p>
+            <p style="margin:0; flex:1 1 240px; font-size:16.5px; line-height:1.5; font-weight:600;">A baseline agent-based macro model</p>
+            <p style="margin:0; flex:2 1 260px; font-size:15.5px; line-height:1.55; color:var(--muted); text-wrap:pretty;">Macro from interacting heterogeneous agents</p>
           </div>
         </div>
-        <p style="margin:0; font-size:15px; line-height:1.6; color:var(--muted); max-width:62ch; text-wrap:pretty;"><span class="tag">Not yet fixed</span> &nbsp;The groups and their baseline models are a proposal. Which baseline a group adopts follows from what its toolkits can actually solve — see <a href="#baselines">how a baseline is agreed</a> below. Agreeing them is an early milestone, not a precondition for joining.</p>
+        <p style="margin:0; font-size:15px; line-height:1.6; color:var(--muted); text-wrap:pretty;"><span class="tag">Not yet fixed</span> &nbsp;The set is a starting proposal, not a ceiling. Models are added as projects propose them, and a model earns its place by being solved — see <a href="#baselines">how the templates work</a> below.</p>
       </div>
     </section>
 
     <section id="baselines" style="display:flex; flex-wrap:wrap; gap:20px 56px; padding:64px 0; border-top:1px solid var(--line);">
       <div style="flex:1 1 150px; max-width:190px;">
-        <h2 style="margin:0; font-family:'IBM Plex Mono',monospace; font-size:12.5px; font-weight:400; letter-spacing:0.08em; text-transform:uppercase; color:var(--accent);">04 · Agreeing a baseline</h2>
+        <h2 style="margin:0; font-family:'IBM Plex Mono',monospace; font-size:12.5px; font-weight:400; letter-spacing:0.08em; text-transform:uppercase; color:var(--accent);">04 · Baseline templates</h2>
       </div>
       <div style="flex:999 1 400px; min-width:0; display:grid; gap:28px;">
-        <p style="margin:0; font-size:16.5px; line-height:1.65; max-width:62ch; text-wrap:pretty;">Agreeing what the shared baseline <em>is</em> — precisely enough that results line up, without prescribing how it should be solved — is the hard part of this project. It is run as a specification process with a named author, not as a design committee.</p>
+        <p style="margin:0; font-size:16.5px; line-height:1.65; text-wrap:pretty;">Each model in the set gets a baseline template: a precise statement of what the model <em>is</em> — enough that results line up across toolkits — without prescribing how it should be solved.</p>
         <div style="display:grid; gap:0;">
           <div style="display:flex; flex-wrap:wrap; gap:6px 32px; padding:20px 0; border-top:1px solid var(--line);">
             <p style="margin:0; flex:1 1 150px; max-width:190px; font-family:'IBM Plex Mono',monospace; font-size:12.5px; letter-spacing:0.04em; color:var(--accent);">Step 1</p>
             <div style="flex:999 1 300px; min-width:0;">
-              <h3 style="margin:0 0 6px; font-family:'Newsreader',serif; font-weight:500; font-size:19px;">A capability survey at sign-up</h3>
-              <p style="margin:0; font-size:15.5px; line-height:1.6; color:var(--muted); text-wrap:pretty;">Every project completes a short capability survey when it joins the working group — model classes it solves, treatment of aggregate risk, constraints, the objects it reports natively. The responses compose the capability matrix.</p>
+              <h3 style="margin:0 0 6px; font-family:'Newsreader',serif; font-weight:500; font-size:19px;">The set is published</h3>
+              <p style="margin:0; font-size:15.5px; line-height:1.6; color:var(--muted); text-wrap:pretty;">The working group publishes the baseline set. Each model is anchored on a published paper with its own calibration.</p>
             </div>
           </div>
           <div style="display:flex; flex-wrap:wrap; gap:6px 32px; padding:20px 0; border-top:1px solid var(--line);">
             <p style="margin:0; flex:1 1 150px; max-width:190px; font-family:'IBM Plex Mono',monospace; font-size:12.5px; letter-spacing:0.04em; color:var(--accent);">Step 2</p>
             <div style="flex:999 1 300px; min-width:0;">
-              <h3 style="margin:0 0 6px; font-family:'Newsreader',serif; font-weight:500; font-size:19px;">The matrix picks the model</h3>
-              <p style="margin:0; font-size:15.5px; line-height:1.6; color:var(--muted); text-wrap:pretty;">Within a group, what every toolkit can actually solve defines the feasible baselines. The model is chosen from that intersection and anchored on a published paper with its own calibration, so the group transcribes and disambiguates rather than designs.</p>
+              <h3 style="margin:0 0 6px; font-family:'Newsreader',serif; font-weight:500; font-size:19px;">Projects choose their models</h3>
+              <p style="margin:0; font-size:15.5px; line-height:1.6; color:var(--muted); text-wrap:pretty;">One model is enough and several are welcome; the choice is per model, with no obligation beyond it.</p>
             </div>
           </div>
           <div style="display:flex; flex-wrap:wrap; gap:6px 32px; padding:20px 0; border-top:1px solid var(--line);">
             <p style="margin:0; flex:1 1 150px; max-width:190px; font-family:'IBM Plex Mono',monospace; font-size:12.5px; letter-spacing:0.04em; color:var(--accent);">Step 3</p>
             <div style="flex:999 1 300px; min-width:0;">
-              <h3 style="margin:0 0 6px; font-family:'Newsreader',serif; font-weight:500; font-size:19px;">A model specification architect</h3>
-              <p style="margin:0; font-size:15.5px; line-height:1.6; color:var(--muted); text-wrap:pretty;">Each group has one named architect who authors the specification. The group comments asynchronously; open questions are settled in the issue tracker, and the co-chairs arbitrate anything that stalls. The specification is versioned and credited to its author.</p>
+              <h3 style="margin:0 0 6px; font-family:'Newsreader',serif; font-weight:500; font-size:19px;">A template notebook per model</h3>
+              <p style="margin:0; font-size:15.5px; line-height:1.6; color:var(--muted); text-wrap:pretty;">Each template is published as a PDF and a notebook, with the model statement and explanatory text already written — a project adds only the code that solves it. Templates are versioned and credited to their author; open questions are settled in the issue tracker.</p>
             </div>
           </div>
           <div style="display:flex; flex-wrap:wrap; gap:6px 32px; padding:20px 0; border-top:1px solid var(--line); border-bottom:1px solid var(--line);">
             <p style="margin:0; flex:1 1 150px; max-width:190px; font-family:'IBM Plex Mono',monospace; font-size:12.5px; letter-spacing:0.04em; color:var(--accent);">Step 4</p>
             <div style="flex:999 1 300px; min-width:0;">
-              <h3 style="margin:0 0 6px; font-family:'Newsreader',serif; font-weight:500; font-size:19px;">Tutorials are submitted against it</h3>
-              <p style="margin:0; font-size:15.5px; line-height:1.6; color:var(--muted); text-wrap:pretty;">Once frozen, the specification is what each project implements and writes its tutorial against. A specification is not frozen until two independent implementations reach the agreed tolerance — the first divergence between them is the best review the document will get.</p>
+              <h3 style="margin:0 0 6px; font-family:'Newsreader',serif; font-weight:500; font-size:19px;">Implementations line up against it</h3>
+              <p style="margin:0; font-size:15.5px; line-height:1.6; color:var(--muted); text-wrap:pretty;">Each project completes the notebook in its own toolkit — the code, plus commentary where its method differs — and the completed notebook is its tutorial.</p>
             </div>
           </div>
         </div>
         <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(270px, 1fr)); gap:20px;">
           <article style="display:flex; flex-direction:column; gap:12px; border:1px solid var(--line); background:var(--surface); padding:26px 24px;">
-            <span style="font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:0.08em; text-transform:uppercase; color:var(--accent);">The spec pins</span>
+            <span style="font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:0.08em; text-transform:uppercase; color:var(--accent);">The template pins</span>
             <ul class="plain" style="color:var(--muted);">
               <li>Functional forms, timing conventions, normalizations</li>
               <li>Parameter values, and where they come from</li>
@@ -179,7 +183,7 @@ ul.plain li::marker{color:var(--accent);}
             </ul>
           </article>
           <article style="display:flex; flex-direction:column; gap:12px; border:1px solid var(--line); background:var(--surface); padding:26px 24px;">
-            <span style="font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:0.08em; text-transform:uppercase; color:var(--accent);">The spec leaves free</span>
+            <span style="font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:0.08em; text-transform:uppercase; color:var(--accent);">The template leaves free</span>
             <ul class="plain" style="color:var(--muted);">
               <li>Solution method and algorithm</li>
               <li>Grids, discretization, basis functions</li>
@@ -189,7 +193,7 @@ ul.plain li::marker{color:var(--accent);}
             </ul>
           </article>
         </div>
-        <p style="margin:0; font-size:15.5px; line-height:1.6; color:var(--muted); max-width:62ch; text-wrap:pretty;">Where implementations diverge beyond tolerance, the divergence is documented and attributed to method — it is a result of the exercise, not a failure of it. A project that cannot match one element of a specification exactly contributes with a documented deviation rather than dropping out. <strong style="font-weight:600; color:var(--ink);">Phase 1 publishes no timings and no ranking of toolkits.</strong></p>
+        <p style="margin:0; font-size:15.5px; line-height:1.6; color:var(--muted); text-wrap:pretty;">Divergence beyond tolerance is documented and attributed to method — a result of the exercise, not a failure of it. A project that cannot match one element of a template contributes with a documented deviation rather than dropping out. <strong style="font-weight:600; color:var(--ink);">Phase 1 publishes no timings and no ranking of toolkits.</strong></p>
       </div>
     </section>
 
@@ -197,14 +201,14 @@ ul.plain li::marker{color:var(--accent);}
       <div style="flex:1 1 150px; max-width:190px;">
         <h2 style="margin:0; font-family:'IBM Plex Mono',monospace; font-size:12.5px; font-weight:400; letter-spacing:0.08em; text-transform:uppercase; color:var(--accent);">05 · The ask</h2>
       </div>
-      <div style="flex:999 1 400px; min-width:0; display:grid; gap:28px; max-width:62ch;">
+      <div style="flex:999 1 400px; min-width:0; display:grid; gap:28px;">
         <div>
           <h3 style="margin:0 0 12px; font-family:'Newsreader',serif; font-weight:500; font-size:26px; line-height:1.2;">What each project provides</h3>
           <ul class="plain">
             <li>Agreement in principle to take part.</li>
-            <li>By <strong style="font-weight:600;">end of 2026</strong>, the shared baseline model in its toolkit, coordinated with the other projects in its group so results line up side by side.</li>
+            <li>By <strong style="font-weight:600;">end of 2026</strong>, at least one baseline model solved in its toolkit against the model's template, so results line up side by side.</li>
             <li>An author's-choice showcase tutorial highlighting where the toolkit is strongest.</li>
-            <li>Both authored and maintained by the project, under CC-BY for text and an OSI-approved licence for code.</li>
+            <li>Both contributions authored and maintained by the project — CC-BY for text, an OSI-approved licence for code.</li>
           </ul>
         </div>
         <div>
@@ -214,7 +218,7 @@ ul.plain li::marker{color:var(--accent);}
             <li>Editorial control over how its tool is presented.</li>
             <li>The right to update or withdraw contributions at any time.</li>
           </ul>
-          <p style="margin:16px 0 0; font-size:15.5px; line-height:1.6; color:var(--muted); text-wrap:pretty;">The library curates and publishes; it does not take ownership of anyone's work, and it does not rank the toolkits.</p>
+          <p style="margin:16px 0 0; font-size:15.5px; line-height:1.6; color:var(--muted); text-wrap:pretty;">The library curates and publishes; it does not own anyone's work or rank the toolkits.</p>
         </div>
       </div>
     </section>
@@ -223,22 +227,22 @@ ul.plain li::marker{color:var(--accent);}
       <div style="flex:1 1 150px; max-width:190px;">
         <h2 style="margin:0; font-family:'IBM Plex Mono',monospace; font-size:12.5px; font-weight:400; letter-spacing:0.08em; text-transform:uppercase; color:var(--accent);">06 · Who does what</h2>
       </div>
-      <div style="flex:999 1 400px; min-width:0; display:grid; grid-template-columns:repeat(auto-fit, minmax(230px, 1fr)); gap:28px 40px; max-width:70ch;">
-        <div>
-          <h3 style="margin:0 0 6px; font-family:'Newsreader',serif; font-weight:500; font-size:19px;">The working group</h3>
-          <p style="margin:0; font-size:15px; line-height:1.6; color:var(--muted);">Governance sits with WG1: the model list, the baseline specifications, coordination within each group, and editorial standards for the collection.</p>
+      <div style="flex:999 1 400px; min-width:0; display:grid; gap:0;">
+        <div style="display:flex; flex-wrap:wrap; gap:6px 32px; align-items:baseline; padding:18px 0; border-top:1px solid var(--line);">
+          <h3 style="margin:0; flex:1 1 200px; max-width:240px; font-family:'Newsreader',serif; font-weight:500; font-size:19px; line-height:1.3;">The working group</h3>
+          <p style="margin:0; flex:2 1 300px; font-size:15.5px; line-height:1.6; color:var(--muted); text-wrap:pretty;">Builds and releases the baseline set and templates, and sets the editorial standards for the library.</p>
         </div>
-        <div>
-          <h3 style="margin:0 0 6px; font-family:'Newsreader',serif; font-weight:500; font-size:19px;">Participating projects</h3>
-          <p style="margin:0; font-size:15px; line-height:1.6; color:var(--muted);">Author and maintain their own implementations and tutorials. Toolkit-specific content stays the contributors'.</p>
+        <div style="display:flex; flex-wrap:wrap; gap:6px 32px; align-items:baseline; padding:18px 0; border-top:1px solid var(--line);">
+          <h3 style="margin:0; flex:1 1 200px; max-width:240px; font-family:'Newsreader',serif; font-weight:500; font-size:19px; line-height:1.3;">Participating projects</h3>
+          <p style="margin:0; flex:2 1 300px; font-size:15.5px; line-height:1.6; color:var(--muted); text-wrap:pretty;">Author and maintain their own implementations and tutorials — toolkit-specific content stays theirs.</p>
         </div>
-        <div>
-          <h3 style="margin:0 0 6px; font-family:'Newsreader',serif; font-weight:500; font-size:19px;">QuantEcon</h3>
-          <p style="margin:0; font-size:15px; line-height:1.6; color:var(--muted);">Partner in the organising body: hosts and publishes the collection, and builds the ecosystem glue the group identifies — open-in-local-MATLAB / Octave / Julia handlers, schema validators, CI converters between toolkit output formats.</p>
+        <div style="display:flex; flex-wrap:wrap; gap:6px 32px; align-items:baseline; padding:18px 0; border-top:1px solid var(--line);">
+          <h3 style="margin:0; flex:1 1 200px; max-width:240px; font-family:'Newsreader',serif; font-weight:500; font-size:19px; line-height:1.3;">QuantEcon</h3>
+          <p style="margin:0; flex:2 1 300px; font-size:15.5px; line-height:1.6; color:var(--muted); text-wrap:pretty;">Hosts and publishes the library, and builds the shared tooling: local-run handlers for MATLAB, Octave and Julia, schema validators, converters between output formats.</p>
         </div>
-        <div>
-          <h3 style="margin:0 0 6px; font-family:'Newsreader',serif; font-weight:500; font-size:19px;">Econ-ARK</h3>
-          <p style="margin:0; font-size:15px; line-height:1.6; color:var(--muted);">Anchors a distinct semantic-representation track. Once the curated library exists, its models become the corpus for expressing economic models in a shared schema — documented and taught alongside the implementations, and validated against the library itself.</p>
+        <div style="display:flex; flex-wrap:wrap; gap:6px 32px; align-items:baseline; padding:18px 0; border-top:1px solid var(--line); border-bottom:1px solid var(--line);">
+          <h3 style="margin:0; flex:1 1 200px; max-width:240px; font-family:'Newsreader',serif; font-weight:500; font-size:19px; line-height:1.3;">Econ-ARK</h3>
+          <p style="margin:0; flex:2 1 300px; font-size:15.5px; line-height:1.6; color:var(--muted); text-wrap:pretty;">Anchors the semantic-representation track: the library's models expressed in a shared schema, documented alongside the implementations and validated against them.</p>
         </div>
       </div>
     </section>
@@ -283,11 +287,15 @@ ul.plain li::marker{color:var(--accent);}
         <h2 style="margin:0; font-family:'IBM Plex Mono',monospace; font-size:12.5px; font-weight:400; letter-spacing:0.08em; text-transform:uppercase; color:var(--accent);">08 · Contributing</h2>
       </div>
       <div style="flex:999 1 400px; min-width:0; display:grid; gap:24px;">
-        <p style="margin:0; font-size:16.5px; line-height:1.65; max-width:62ch; text-wrap:pretty;">The collection is an open-source repository and takes pull requests from anyone, member or not. Contributions to a project's own implementation are merged at that project's discretion.</p>
+        <p style="margin:0; font-size:16.5px; line-height:1.65; text-wrap:pretty;">The library is an open-source repository and takes pull requests from anyone, member or not; changes to a project's implementation merge at that project's discretion.</p>
         <div style="display:grid; gap:0;">
           <div style="display:flex; flex-wrap:wrap; gap:4px 24px; align-items:baseline; padding:16px 0; border-top:1px solid var(--line);">
             <p style="margin:0; flex:1 1 170px; font-family:'IBM Plex Mono',monospace; font-size:12.5px; letter-spacing:0.04em; color:var(--accent);">Repository</p>
-            <p style="margin:0; flex:2 1 260px; font-size:15.5px; line-height:1.55; color:var(--muted);">⟨link to follow⟩ — hosted and published by QuantEcon</p>
+            <p style="margin:0; flex:2 1 260px; font-size:15.5px; line-height:1.55; color:var(--muted);"><a href="https://github.com/QuantEcon/community-library">QuantEcon/community-library</a> — hosted and published by QuantEcon</p>
+          </div>
+          <div style="display:flex; flex-wrap:wrap; gap:4px 24px; align-items:baseline; padding:16px 0; border-top:1px solid var(--line);">
+            <p style="margin:0; flex:1 1 170px; font-family:'IBM Plex Mono',monospace; font-size:12.5px; letter-spacing:0.04em; color:var(--accent);">Templates</p>
+            <p style="margin:0; flex:2 1 260px; font-size:15.5px; line-height:1.55; color:var(--muted);">Distributed from this site — a PDF and a notebook per baseline model</p>
           </div>
           <div style="display:flex; flex-wrap:wrap; gap:4px 24px; align-items:baseline; padding:16px 0; border-top:1px solid var(--line);">
             <p style="margin:0; flex:1 1 170px; font-family:'IBM Plex Mono',monospace; font-size:12.5px; letter-spacing:0.04em; color:var(--accent);">Layout</p>
@@ -299,7 +307,7 @@ ul.plain li::marker{color:var(--accent);}
           </div>
           <div style="display:flex; flex-wrap:wrap; gap:4px 24px; align-items:baseline; padding:16px 0; border-top:1px solid var(--line); border-bottom:1px solid var(--line);">
             <p style="margin:0; flex:1 1 170px; font-family:'IBM Plex Mono',monospace; font-size:12.5px; letter-spacing:0.04em; color:var(--accent);">Discussion</p>
-            <p style="margin:0; flex:2 1 260px; font-size:15.5px; line-height:1.55; color:var(--muted);">Until the repository is up, in the <a href="https://github.com/mmcky/sce-wg1/issues">WG1 issue tracker</a></p>
+            <p style="margin:0; flex:2 1 260px; font-size:15.5px; line-height:1.55; color:var(--muted);">In the <a href="https://github.com/econ-ark/sce-wg1/issues">working group issue tracker</a></p>
           </div>
         </div>
       </div>
@@ -309,13 +317,12 @@ ul.plain li::marker{color:var(--accent);}
       <div style="border:1px solid var(--line); background:var(--accent-soft); padding:48px 32px; display:grid; justify-items:center; text-align:center; gap:16px;">
         <span style="font-family:'IBM Plex Mono',monospace; font-size:12.5px; letter-spacing:0.08em; text-transform:uppercase; color:var(--accent);">Take part</span>
         <h2 style="margin:0; font-family:'Newsreader',serif; font-weight:500; font-size:clamp(26px, 3.5vw, 34px); line-height:1.2; max-width:26ch; text-wrap:pretty;">Bring your toolkit into the library.</h2>
-        <p style="margin:0; font-size:16px; line-height:1.6; color:var(--muted-strong); max-width:50ch; text-wrap:pretty;">If you maintain a toolkit that solves any of these model classes, get in touch — agreement in principle is all that is needed to start.</p>
+        <p style="margin:0; font-size:16px; line-height:1.6; color:var(--muted-strong); max-width:50ch; text-wrap:pretty;">If your toolkit can solve any of the baseline models, get in touch — agreement in principle is all it takes to start.</p>
         <div style="display:flex; flex-wrap:wrap; gap:12px 20px; justify-content:center; align-items:center; margin-top:8px;">
           <!-- TODO: replace with the co-chairs' contact addresses before announcing the site.
                No shared wg1@ address is being created — correspondence is sent personally by
                the co-chairs, so this mailto should carry both of their addresses. -->
           <a href="mailto:wg1@example.org?subject=SCE%20WG1%20Project%20B%20%E2%80%94%20participating%20toolkit" style="display:inline-block; background:var(--accent); color:var(--bg); font-size:15px; font-weight:600; text-decoration:none; padding:12px 26px;">Contact the coordinator</a>
-          <a href="./#join" style="font-family:'IBM Plex Mono',monospace; font-size:13px;">Join the working group →</a>
         </div>
       </div>
     </section>
